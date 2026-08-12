@@ -1,0 +1,329 @@
+/* ============================================================
+ * SHARED STYLESHEET — full-site comparison prototype (ui-ux-pro-max +
+ * frontend-design skills). One file, linked by every *-alt.html page,
+ * instead of a duplicated inline <style> block per page — the
+ * font-inconsistency bug found on pmo-consulting-alt.html (Fraunces
+ * left in one file after being removed from another) was exactly the
+ * kind of drift that duplication causes across 11 pages.
+ *
+ * Design system:
+ *   - Amethyst (#8452D6, bespoke — not Linear's indigo) = thinking/
+ *     exploration/existing-state. Teal (#14B8A6, the real brand accent)
+ *     = resolved signal/action. Two colors, two jobs.
+ *   - Inter runs the entire type scale (no serif) — Fraunces was tried
+ *     and dropped per feedback; H1 keeps presence through weight (800)
+ *     and size instead of a second typeface.
+ *   - Glow stays motivated, not ambient: it only appears where a
+ *     panel/CTA is the literal "resolution" moment of its section.
+ *   - Interior-page heroes are compact and static (rule + eyebrow + H1
+ *     + body) — the full plate-stack + glow hero signature is spent
+ *     once, on the homepage, same "don't dilute into wallpaper" rule
+ *     the approved site itself follows.
+ *   - Copy on every page is reused near-verbatim from the approved
+ *     site and traces to brand-strategy/messaging-framework.md's
+ *     approved themes — content stays grounded in brand strategy even
+ *     though visual direction deliberately is not.
+ * Standalone exploration — none of these pages are linked from the
+ * approved site's primary nav.
+ * ============================================================ */
+:root {
+  --void: #0B0A12;
+  --elevated: #15121F;
+  --surface: rgba(255,255,255,0.045);
+  --surface-hover: rgba(255,255,255,0.075);
+  --ink: #F5F1FA;
+  --ink-muted: #9992AE;
+  --amethyst: #8452D6;
+  --amethyst-glow: rgba(132,82,214,0.32);
+  --teal: #14B8A6;
+  --teal-glow: rgba(20,184,166,0.34);
+  --paper: #F8FAFC;
+  --paper-ink: #0F172A;
+  --border: #2A2438;
+  --radius: 14px;
+
+  --font: 'Inter', 'Segoe UI', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', monospace;
+  --ease: cubic-bezier(0.16,1,0.3,1);
+
+  --space-1: 8px; --space-2: 16px; --space-3: 24px; --space-4: 32px;
+  --space-6: 48px; --space-8: 64px; --space-12: 96px; --space-14: 112px;
+  --container-max: 1280px;
+  --measure: 68ch;
+}
+* { box-sizing: border-box; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--font); font-weight: 400; font-size: 16px; line-height: 1.65; color: var(--ink); background: var(--void); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3, h4, p { margin: 0; }
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.015em; color: #FFFFFF; }
+h1 { font-weight: 800; font-size: 3rem; line-height: 1.1; letter-spacing: -0.02em; }
+h2 { font-size: 2.25rem; line-height: 1.15; }
+h3 { font-size: 1.5rem; line-height: 1.3; }
+h4 { font-size: 1.25rem; line-height: 1.3; font-weight: 600; }
+@media (max-width: 640px) { h1 { font-size: 2.25rem; } h2 { font-size: 1.75rem; } }
+.eyebrow { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-muted); }
+.body-lg { font-size: 1.125rem; font-weight: 300; color: var(--ink-muted); }
+.body { font-size: 1rem; font-weight: 400; color: var(--ink); line-height: 1.7; }
+.body-sm { font-size: 0.9375rem; font-weight: 300; color: var(--ink-muted); }
+.text-secondary { color: var(--ink-muted); }
+
+.container { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--space-3); position: relative; }
+.measure { max-width: var(--measure); }
+.stack > * + * { margin-top: var(--space-3); }
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--space-3); }
+.grid-3 { grid-column: span 12; }
+@media (min-width: 768px) { .grid-3 { grid-column: span 4; } }
+.mt-2 { margin-top: var(--space-2); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 600ms var(--ease), transform 600ms var(--ease); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal--d1 { transition-delay: 90ms; }
+.reveal--d2 { transition-delay: 180ms; }
+.reveal--d3 { transition-delay: 270ms; }
+.reveal--d4 { transition-delay: 360ms; }
+.reveal--d5 { transition-delay: 450ms; }
+.reveal--d6 { transition-delay: 540ms; }
+.reveal--d7 { transition-delay: 630ms; }
+.reveal--d8 { transition-delay: 720ms; }
+
+.variant-banner { background: var(--elevated); color: var(--ink); border-bottom: 1px solid var(--border); font-size: 0.8125rem; text-align: center; padding: var(--space-1) var(--space-2); }
+.variant-banner a { color: var(--teal); font-weight: 600; }
+.skip-link { position: absolute; left: -999px; top: 0; z-index: 100; background: var(--teal); color: var(--void); padding: var(--space-1) var(--space-2); }
+.skip-link:focus { left: var(--space-2); top: var(--space-2); }
+
+/* ---------- Header ---------- */
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(11,10,18,0.75); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+.site-header__bar { display: flex; align-items: center; justify-content: space-between; padding-block: var(--space-2); gap: var(--space-3); }
+.brand-mark { font-weight: 700; font-size: 1.5rem; color: #FFFFFF; }
+.brand-mark__o { color: var(--amethyst); }
+.primary-nav { display: none; }
+.primary-nav ul { display: flex; gap: var(--space-4); }
+.primary-nav a { font-size: 0.9375rem; font-weight: 500; color: var(--ink-muted); transition: color 200ms var(--ease); }
+.primary-nav a[aria-current="page"], .primary-nav a:hover { color: #FFFFFF; }
+@media (min-width: 900px) { .primary-nav { display: block; } .header-cta { display: inline-flex; } .nav-toggle { display: none; } }
+.header-cta { display: none; }
+.nav-toggle { background: none; border: 1px solid var(--border); color: var(--ink); border-radius: 8px; padding: var(--space-1) var(--space-2); font: inherit; cursor: pointer; }
+.nav-toggle:hover { border-color: var(--teal); }
+.mobile-nav { display: none; border-top: 1px solid var(--border); padding: var(--space-2) 0; }
+.mobile-nav.is-open { display: block; }
+.mobile-nav ul { display: flex; flex-direction: column; gap: var(--space-2); }
+.mobile-nav a { font-size: 1rem; font-weight: 500; display: block; padding: var(--space-1) 0; color: var(--ink-muted); }
+.mobile-nav a:hover, .mobile-nav a[aria-current="page"] { color: var(--teal); }
+@media (min-width: 900px) { .mobile-nav { display: none !important; } }
+
+/* ---------- Buttons — solid Teal is the one "action" color, never
+   Amethyst, so the two accents don't blur into meaning the same thing. ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.85rem 1.75rem; font-size: 0.9375rem; font-weight: 600; border-radius: 8px; border: 1px solid transparent; cursor: pointer; transition: background-color 150ms var(--ease), border-color 150ms var(--ease), color 150ms var(--ease); }
+.btn--primary { background: var(--teal); color: var(--void); }
+.btn--primary:hover { background: #3FCAB9; }
+.btn--secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn--secondary:hover { background: var(--ink); color: var(--void); }
+.btn-row, .hero__ctas { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+
+/* ---------- Hero ---------- */
+/* Full signature hero: plate stack + motivated glow. Homepage only —
+   spending it on every page would dilute it into wallpaper, same rule
+   the approved site itself follows for its own plate animation. */
+.hero { position: relative; padding-block: var(--space-14) var(--space-8); overflow: hidden; border-bottom: 1px solid var(--border); }
+.hero__glow { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.hero__glow::before { content: ''; position: absolute; width: 640px; height: 640px; top: 50%; right: -220px; transform: translateY(-50%); border-radius: 50%; filter: blur(110px); background: radial-gradient(circle, var(--amethyst-glow), transparent 65%); }
+.hero__plates { position: absolute; top: 50%; right: -24px; transform: translateY(-50%); width: 440px; max-width: 46vw; height: auto; z-index: 0; pointer-events: none; }
+.hero__plates .plate { fill: var(--amethyst); opacity: 0.55; }
+.hero__plates .plate--2, .hero__plates .plate--3 { opacity: 0.7; }
+.hero__plates .plate--4 { opacity: 0.88; }
+.hero__plates .plate--5 { fill: var(--teal); opacity: 1; }
+@media (max-width: 1023px) { .hero__plates, .hero__glow { display: none; } }
+/* Interior-page hero: compact, static, no plates/glow — a single Teal
+   rule bar, same restraint as the approved site's .hero__rule pattern. */
+.hero--compact { padding-block: var(--space-8); }
+.hero__content { position: relative; z-index: 1; max-width: 40rem; }
+.hero__rule { display: block; width: 48px; height: 3px; border-radius: 2px; background: var(--amethyst); margin-bottom: var(--space-2); }
+.hero h1 { margin-block: var(--space-2) var(--space-3); }
+.hero .body-lg { margin-bottom: var(--space-4); }
+.hero .eyebrow { margin-bottom: var(--space-2); }
+.hero .eyebrow a { color: inherit; }
+
+/* ---------- section rhythm ---------- */
+.section { padding-block: var(--space-12); position: relative; }
+.section--spacious { padding-block: var(--space-14); }
+.section--compact, .section--tight { padding-block: var(--space-8); }
+.section--alt, .section--elevated { background: var(--elevated); border-block: 1px solid var(--border); }
+@media (max-width: 640px) { .section, .section--spacious, .section--compact, .section--tight { padding-block: var(--space-6); } }
+
+.layout { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 900px) { .layout { grid-template-columns: 1.1fr 0.9fr; } .layout--reverse .layout__visual { order: -1; } }
+.layout__visual { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
+
+.pair-col { grid-column: span 12; }
+@media (min-width: 768px) { .pair-col { grid-column: span 6; } }
+.concept-pair { display: flex; gap: var(--space-2); align-items: flex-start; padding-top: var(--space-2); border-top: 1px solid var(--border); }
+.concept-pair__mark { font-family: var(--font-mono); color: var(--ink-muted); font-weight: 500; font-size: 0.875rem; min-width: 1.75rem; padding-top: 0.15em; font-variant-numeric: tabular-nums; }
+
+/* ---------- Signal panel — fragmented Amethyst bars tighten toward one
+   resolved Teal signal. Motivated glow, gated by .is-visible (added via
+   IntersectionObserver, see each page's own script block). ---------- */
+.signal-panel-wrap, .signal-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: var(--space-4); width: 100%; position: relative; overflow: hidden; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.signal-panel-wrap::before, .signal-panel::before { content: ''; position: absolute; inset: -20%; z-index: -1; border-radius: 50%; filter: blur(80px); background: radial-gradient(circle, var(--amethyst-glow), transparent 65%); opacity: 0; transition: opacity 900ms var(--ease) 200ms; }
+.signal-panel-wrap.is-visible::before, .signal-panel.is-visible::before { opacity: 1; }
+.signal-panel__bars { display: flex; flex-direction: column; gap: 10px; }
+.signal-panel__bar { height: 10px; border-radius: 5px; background: var(--amethyst); opacity: var(--op, 0.5); }
+.signal-panel__row { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--border); }
+.signal-panel__signal { flex: 1; height: 16px; border-radius: 8px; background: var(--teal); box-shadow: 0 0 24px var(--teal-glow); }
+.signal-panel__label { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted); white-space: nowrap; }
+@media (prefers-reduced-motion: no-preference) {
+  .signal-panel__bar { transform: scaleX(0); transform-origin: left; transition: transform 700ms var(--ease); }
+  .signal-panel-wrap.is-visible .signal-panel__bar, .signal-panel.is-visible .signal-panel__bar { transform: scaleX(1); }
+  .signal-panel__bar:nth-child(1) { transition-delay: 0ms; }
+  .signal-panel__bar:nth-child(2) { transition-delay: 80ms; }
+  .signal-panel__bar:nth-child(3) { transition-delay: 160ms; }
+  .signal-panel__bar:nth-child(4) { transition-delay: 240ms; }
+  .signal-panel__signal { opacity: 0; transition: opacity 500ms var(--ease) 420ms; }
+  .signal-panel-wrap.is-visible .signal-panel__signal, .signal-panel.is-visible .signal-panel__signal { opacity: 1; }
+}
+
+/* ---------- Insight panel — Intelligence Layer: already-settled marks
+   feeding one signal, decision-marks radiating outward. No glow — this
+   section's payoff is the Paper clarity-surface instead. ---------- */
+.insight-panel-wrap { background: var(--elevated); border: 1px solid var(--border); border-radius: 20px; padding: var(--space-4); width: 100%; }
+.insight-panel__marks { display: flex; flex-direction: column; gap: 10px; }
+.insight-panel__mark { height: 10px; border-radius: 5px; background: var(--amethyst); }
+.insight-panel__row { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); }
+.insight-panel__signal { flex: 1; height: 20px; border-radius: 10px; background: var(--teal); }
+.insight-panel__decisions { display: flex; flex-direction: column; gap: 6px; margin-left: var(--space-1); }
+.insight-panel__decision { width: 16px; height: 4px; border-radius: 2px; background: var(--teal); opacity: 0.85; }
+
+/* The one Paper surface — Ink text on Paper, full-width editorial block,
+   no pill/badge chrome. */
+.clarity-surface { display: block; background: var(--paper); padding: var(--space-3) var(--space-4); margin-top: var(--space-3); width: 100%; border-radius: 10px; }
+.clarity-surface__label { font-size: 1.25rem; font-weight: 600; line-height: 1.3; color: var(--paper-ink); margin: 0; }
+
+.principle-rule { height: 1px; background: var(--border); width: 100%; }
+
+/* ---------- Stat strip / field items (glass cards) ---------- */
+.stat-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); position: relative; z-index: 1; }
+@media (max-width: 767px) { .stat-strip { grid-template-columns: 1fr; } }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-3); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.stat-card__value { font-weight: 700; font-size: 2rem; color: var(--teal); letter-spacing: -0.01em; }
+.stat-card__label { font-size: 0.875rem; color: var(--ink-muted); margin-top: var(--space-1); }
+.stat-strip__note { font-size: 0.75rem; color: var(--ink-muted); opacity: 0.75; margin-top: var(--space-2); }
+
+.field-item { grid-column: span 6; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-3); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background 200ms var(--ease), border-color 200ms var(--ease), transform 200ms var(--ease); display: flex; flex-direction: column; gap: var(--space-2); height: 100%; }
+.field-item:hover { background: var(--surface-hover); border-color: rgba(20,184,166,0.4); transform: translateY(-3px); }
+@media (max-width: 767px) { .field-item { grid-column: 1 / -1; } }
+.field-item__head { display: flex; align-items: center; gap: var(--space-2); }
+.field-item__num { font-family: var(--font-mono); font-weight: 500; font-size: 0.9375rem; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.field-item__spark { width: 44px; height: 16px; flex-shrink: 0; }
+.field-item__spark polyline { fill: none; stroke: var(--teal); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.field-item__spark circle { fill: var(--teal); }
+.field-item__link { margin-top: auto; font-weight: 600; font-size: 0.9375rem; color: var(--teal); }
+.field-item__link::after { content: "\2192"; display: inline-block; margin-left: 0.35em; transition: transform 200ms var(--ease); }
+.field-item:hover .field-item__link::after { transform: translateX(4px); }
+/* Service icon bars — same muted/accent language as the hero plates,
+   reused at icon scale, not a new visual system. */
+.service-icon { width: 40px; height: 40px; display: block; }
+.service-icon .bar--1 { fill: var(--amethyst); opacity: 0.55; }
+.service-icon .bar--2 { fill: var(--amethyst); opacity: 0.8; }
+.service-icon .bar--accent { fill: var(--teal); }
+
+.principle { grid-column: span 6; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-3); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+@media (max-width: 767px) { .principle { grid-column: 1 / -1; } }
+
+/* ---------- Numbered process list (AI Adoption page) — a genuine
+   sequence, IBM Plex Mono numerals matching .concept-pair__mark's
+   technical-identifier use case. ---------- */
+.process-list { counter-reset: step; display: flex; flex-direction: column; gap: var(--space-3); position: relative; }
+.process-list::before { content: ''; position: absolute; left: 3.25rem; top: 0.6em; bottom: 0.6em; width: 2px; background: var(--border); }
+.process-item { display: flex; gap: var(--space-3); align-items: baseline; position: relative; }
+.process-item::before { counter-increment: step; content: counter(step, decimal-leading-zero); font-family: var(--font-mono); font-weight: 500; color: var(--ink-muted); min-width: 2.5rem; font-variant-numeric: tabular-nums; }
+
+/* ---------- Forms (Contact page) ---------- */
+.form-note { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-2) var(--space-3); font-size: 0.875rem; color: var(--ink-muted); }
+.form-field { display: flex; flex-direction: column; gap: var(--space-1); margin-bottom: var(--space-2); }
+.form-field label { font-size: 0.875rem; font-weight: 600; color: var(--ink); }
+.form-field input, .form-field textarea { font: inherit; padding: 0.65rem 0.85rem; border: 1px solid var(--border); border-radius: 8px; background: var(--void); color: var(--ink); }
+.form-field input::placeholder, .form-field textarea::placeholder { color: #6B6280; }
+.form-field input:focus, .form-field textarea:focus { border-color: var(--teal); }
+.form-success { display: none; }
+.form-success.is-visible { display: block; }
+
+/* ---------- CTA — glow moment echoing the panel's resolution. ---------- */
+.cta { position: relative; text-align: center; overflow: hidden; border-radius: 24px; margin-inline: var(--space-3); background: var(--elevated); border: 1px solid var(--border); padding-block: var(--space-8); }
+.cta::before { content: ''; position: absolute; inset: -40% -10% auto -10%; height: 280px; border-radius: 50%; filter: blur(100px); background: radial-gradient(circle, var(--teal-glow), transparent 70%); pointer-events: none; }
+.cta h2 { color: #FFFFFF; }
+.cta__rule { width: 64px; height: 3px; border-radius: 2px; background: var(--teal); margin: var(--space-3) auto 0; }
+.pull-quote { font-style: italic; font-weight: 400; font-size: 1.25rem; line-height: 1.5; color: var(--ink-muted); }
+.pull-quote::before { content: '\201C'; color: var(--teal); }
+.pull-quote::after { content: '\201D'; color: var(--teal); }
+
+/* ---------- Footer ---------- */
+.site-footer { border-top: 1px solid var(--border); padding-block: var(--space-6) var(--space-3); background: var(--elevated); }
+.site-footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--space-4); padding-bottom: var(--space-4); }
+@media (max-width: 767px) { .site-footer__grid { grid-template-columns: 1fr; } }
+.site-footer h4 { font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink); margin-bottom: var(--space-2); }
+.site-footer a { color: var(--ink-muted); font-size: 0.9375rem; transition: color 200ms var(--ease); }
+.site-footer a:hover { color: var(--teal); }
+.site-footer ul li + li { margin-top: var(--space-1); }
+.site-footer__brand { font-weight: 700; font-size: 1.125rem; color: #FFFFFF; margin-bottom: var(--space-1); }
+.site-footer__bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-2); padding-top: var(--space-3); border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--ink-muted); }
+
+/* ------------------------------------------------------------
+ * Showcase row (report / dashboard mockups) + P6-authentic mockup.
+ * ------------------------------------------------------------ */
+.showcase-row { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--space-3); }
+.showcase-item { grid-column: span 12; }
+@media (min-width: 900px) { .showcase-item { grid-column: span 6; } }
+.showcase-item--wide { grid-column: span 12; }
+.showcase-frame { position: relative; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--border); aspect-ratio: 4 / 3; background: var(--elevated); }
+.showcase-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 50%; will-change: transform; }
+.showcase-caption { margin-top: var(--space-2); font-size: 0.875rem; color: var(--ink-muted); }
+.showcase-caption strong { color: var(--ink); font-weight: 600; }
+
+/* P6-authentic mockup — hand-built recreation of real Primavera P6 UI
+   conventions. Deliberately keeps P6's own real light UI and red/blue
+   palette rather than this prototype's amethyst/teal — the point is
+   that it reads as a genuine third-party screenshot, not PMOlogy
+   chrome, regardless of which page it sits on. */
+.p6-window { background: #F3F4F6; border-radius: 8px; overflow: hidden; border: 1px solid #D1D5DB; font-family: var(--font); }
+.p6-window__titlebar { display: flex; align-items: center; gap: var(--space-2); padding: 7px 12px; background: #E5E7EB; border-bottom: 1px solid #D1D5DB; }
+.p6-window__dots { display: flex; gap: 5px; }
+.p6-window__dots span { width: 9px; height: 9px; border-radius: 50%; background: #C6CDD6; display: block; }
+.p6-window__title { font-size: 11.5px; color: #4B5563; font-weight: 500; }
+.p6-ribbon { display: flex; align-items: center; gap: 2px; padding: 0 10px; background: #FFFFFF; border-bottom: 1px solid #D1D5DB; }
+.p6-ribbon__tab { font-size: 11px; color: #6B7280; padding: 7px 10px; border-bottom: 2px solid transparent; }
+.p6-ribbon__tab.active { color: #1D4ED8; border-bottom-color: #1D4ED8; font-weight: 600; }
+.p6-window__body { display: flex; }
+.p6-table { width: 42%; min-width: 280px; border-right: 1px solid #D1D5DB; background: #FFFFFF; }
+.p6-row { display: grid; grid-template-columns: 20% 40% 14% 13% 13%; align-items: center; height: 25px; border-bottom: 1px solid #EEF0F2; font-size: 10px; color: #374151; }
+.p6-row > span { padding-inline: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.p6-row--header { background: #E9EDF1; font-weight: 600; color: #4B5563; text-transform: uppercase; font-size: 8.5px; letter-spacing: 0.03em; height: 22px; }
+.p6-row--wbs { background: #DCE3EA; font-weight: 600; color: #1F2937; grid-template-columns: 1fr; }
+.p6-row--wbs span { padding-inline: 6px; }
+.p6-gantt { flex: 1; position: relative; background: #FFFFFF; }
+.p6-gantt__timescale { display: grid; grid-template-columns: repeat(8, 1fr); height: 22px; background: #E9EDF1; border-bottom: 1px solid #D1D5DB; }
+.p6-gantt__timescale span { font-size: 8.5px; color: #6B7280; text-align: center; line-height: 22px; border-right: 1px solid #D1D5DB; }
+.p6-gantt__grid { position: absolute; inset: 22px 0 0 0; display: grid; grid-template-columns: repeat(8, 1fr); pointer-events: none; }
+.p6-gantt__grid span { border-right: 1px solid #F1F3F5; }
+.p6-gantt__rows { position: relative; }
+.p6-gantt__row { position: relative; height: 25px; border-bottom: 1px solid #EEF0F2; }
+.p6-gantt__row--wbs { height: 22px; background: #DCE3EA; }
+.p6-bar { position: absolute; top: 6px; height: 13px; border-radius: 2px; background: #93A5C4; }
+.p6-bar--critical { background: #E97C7C; }
+.p6-bar__fill { position: absolute; inset: 0; border-radius: 2px 0 0 2px; background: #3B5BA5; }
+.p6-bar--critical .p6-bar__fill { background: #C0392B; }
+.p6-baseline { position: absolute; top: 21px; height: 3px; border-radius: 2px; background: #B8C0CC; }
+.p6-milestone { position: absolute; top: 4px; width: 15px; height: 15px; background: #374151; transform: rotate(45deg); border-radius: 2px; }
+.p6-milestone--critical { background: #C0392B; }
+.p6-dataline { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1.5px dashed #C0392B; z-index: 2; }
+.p6-dataline__label { position: absolute; top: -1px; left: 4px; font-size: 7.5px; font-weight: 700; color: #C0392B; white-space: nowrap; letter-spacing: 0.04em; }
+.p6-legend { display: flex; gap: var(--space-3); padding: 8px 12px; background: #F8F9FB; border-top: 1px solid #D1D5DB; font-size: 9px; color: #6B7280; }
+.p6-legend__swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }

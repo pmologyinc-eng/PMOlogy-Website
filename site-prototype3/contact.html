@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Contact - PMOlogy</title>
+<meta name="description" content="Talk to PMOlogy about your project delivery, project-controls, or AI-adoption needs.">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="prototype-banner">Design exploration - Prototype C. Separate visual system, business content only. No live form submission.</div>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container site-header__bar">
+    <a class="brand-mark" href="index.html" aria-label="PMOlogy - home">PMO<span class="brand-mark__accent">logy</span></a>
+    <nav class="primary-nav" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services/index.html">Services</a></li>
+        <li><a href="approach.html">Approach</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn--primary header-cta" href="contact.html">Contact us</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile">
+    <div class="container">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services/index.html">Services</a></li>
+        <li><a href="approach.html">Approach</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero" style="padding-block: var(--space-5);">
+    <div class="container">
+      <p class="eyebrow">Contact</p>
+      <h1 class="display" style="max-width: 18ch; font-size: clamp(2.1rem, 3.6vw, 3rem);">Tell us where your PMO is starting from.</h1>
+      <p class="body-lg" style="max-width: 56ch; margin-top: var(--space-2);">Share a bit about your delivery environment and what's not working. We'll follow up to set up a conversation.</p>
+    </div>
+  </section>
+
+  <section class="section--tight">
+    <div class="container split" style="align-items:start;">
+      <div class="split__col" style="background:transparent; border:none; padding:0;">
+        <form class="form" data-prototype-form novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="org">Organization</label>
+            <input id="org" name="org" type="text" autocomplete="organization">
+          </div>
+          <div class="field">
+            <label for="topic">What's this about?</label>
+            <select id="topic" name="topic">
+              <option>PMO consulting</option>
+              <option>AI adoption in project controls</option>
+              <option>Project controls, reporting and automation</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button class="btn btn--primary" type="submit" style="width: fit-content;">Send message</button>
+          <p class="form-note">Prototype only, this form does not submit anywhere yet. Real submission arrives with the production build.</p>
+        </form>
+        <div class="form-success" data-form-success tabindex="-1">
+          <h3 class="h3">Message received (prototype)</h3>
+          <p style="color: var(--ink-muted);">In production, this confirms your message was sent and outlines next steps.</p>
+        </div>
+      </div>
+      <div class="split__col split__col--signal reveal">
+        <span class="tag">Direct</span>
+        <h3 class="h3">Prefer email?</h3>
+        <p class="stat-figure" style="margin: 0.4em 0 1.2em;">hello@pmology.example</p>
+        <hr style="border: none; border-top: 1px solid var(--line-strong); margin-block: var(--space-2);">
+        <p style="color: var(--ink-muted); font-size: 0.98rem;">We work with organizations across engineering, construction, infrastructure, energy, technology, and consulting, anywhere structured planning, controls, and delivery matter.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <p class="footer__brand">PMOlogy</p>
+        <p style="color: var(--ink-muted);">Project-controls expertise, combined with practical AI, automation, and analytics.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Site">
+        <h4>Site</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services/index.html">Services</a></li>
+          <li><a href="approach.html">Approach</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <nav class="footer__nav" aria-label="Legal">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="legal/privacy.html">Privacy policy</a></li>
+          <li><a href="legal/terms.html">Terms</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 PMOlogy. Prototype C, design exploration.</span>
+      <span>Built for evaluation, not production.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
