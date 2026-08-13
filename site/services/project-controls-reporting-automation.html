@@ -65,74 +65,123 @@
     </div>
   </section>
 
-  <!-- "What we strengthen" — reuses the .intelligence-layout / .intelligence-panel--resolve
-       pattern (see homepage Project Controls section and docs/design-system-hybrid-direction.md
-       Section 1). Four concept-pairs map to the four services confirmed in scope: Schedule
-       Management, Cost & Resource Management, Performance Tracking, Reporting & Dashboarding
-       (automation folded into the reporting pair). Risk management and staffing/outsourcing
-       services are deliberately out of scope — see PMOlogy-Brand decision log. -->
-  <section class="section section--alt section--spacious">
+  <!-- "What we strengthen" — short lead-in only (no shared graphic anymore).
+       Restructured 2026-08-12 at the business owner's request: each of the
+       four service areas now gets its own individual section below, text
+       left / real sample image right (.intelligence-layout, no --reverse,
+       so the visual always lands in the right column — see the CSS comment
+       at .intelligence-layout--reverse for why --reverse would do the
+       opposite). Risk management and staffing/outsourcing services remain
+       deliberately out of scope — see PMOlogy-Brand decision log D-0008/D-0012. -->
+  <section class="section section--alt">
     <div class="container">
-      <div class="intelligence-layout">
-        <div class="reveal">
+      <div class="grid">
+        <div class="grid-3 reveal" style="grid-column: span 12; max-width: var(--content-measure);">
           <p class="eyebrow">What we strengthen</p>
           <h2 class="mt-2">Visibility across schedule, cost, performance, and reporting.</h2>
           <p class="body-lg text-secondary mt-2 measure">Every engagement starts with the controls already in place. We tighten schedules, cost baselines, and status reporting into a single, reliable picture — one leadership can actually act on.</p>
-          <div class="grid mt-4">
-            <div class="pair-col">
-              <div class="concept-pair">
-                <span class="concept-pair__mark" aria-hidden="true">01</span>
-                <div>
-                  <h4>Schedule management</h4>
-                  <p class="body-sm text-secondary mt-2">Realistic, stakeholder-aligned schedules across the full project lifecycle, with critical-path analysis to catch variances and delay impacts before they compound.</p>
-                </div>
-              </div>
-            </div>
-            <div class="pair-col">
-              <div class="concept-pair">
-                <span class="concept-pair__mark" aria-hidden="true">02</span>
-                <div>
-                  <h4>Cost &amp; resource management</h4>
-                  <p class="body-sm text-secondary mt-2">Resource- and cost-loaded schedules, forecasting, and budget tracking tied directly to the same baseline, so variance is visible before it becomes a problem.</p>
-                </div>
-              </div>
-            </div>
-            <div class="pair-col">
-              <div class="concept-pair">
-                <span class="concept-pair__mark" aria-hidden="true">03</span>
-                <div>
-                  <h4>Performance tracking</h4>
-                  <p class="body-sm text-secondary mt-2">Consistent, verifiable progress measurement — earned value, trend analysis, milestone tracking — so issues surface early enough to act on.</p>
-                </div>
-              </div>
-            </div>
-            <div class="pair-col">
-              <div class="concept-pair">
-                <span class="concept-pair__mark" aria-hidden="true">04</span>
-                <div>
-                  <h4>Reporting, dashboarding &amp; automation</h4>
-                  <p class="body-sm text-secondary mt-2">Real-time dashboards and executive reporting built from a single, structured data pipeline — with repetitive data collection automated wherever it reliably can be.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="intelligence-layout__visual intelligence-layout__visual--structural reveal reveal--d2">
-          <svg class="intelligence-panel intelligence-panel--resolve" viewBox="0 0 400 260" aria-hidden="true" focusable="false">
-            <rect class="intelligence-panel__mark intelligence-panel__mark--1" style="--op:.5;  --dx:-22px; --dy:24px;  --r:-6deg;" x="20" y="210" width="140" height="10" rx="5"/>
-            <rect class="intelligence-panel__mark intelligence-panel__mark--2" style="--op:.57; --dx:26px;  --dy:-16px; --r:4deg;"  x="20" y="182" width="170" height="10" rx="5"/>
-            <rect class="intelligence-panel__mark intelligence-panel__mark--3" style="--op:.63; --dx:-24px; --dy:-22px; --r:-5deg;" x="20" y="154" width="120" height="10" rx="5"/>
-            <rect class="intelligence-panel__mark intelligence-panel__mark--4" style="--op:.73; --dx:28px;  --dy:18px;  --r:5deg;"  x="20" y="126" width="190" height="10" rx="5"/>
-            <rect class="intelligence-panel__mark intelligence-panel__mark--5" style="--op:.83; --dx:-20px; --dy:14px;  --r:-4deg;" x="20" y="98"  width="150" height="10" rx="5"/>
-            <rect class="intelligence-panel__mark intelligence-panel__mark--6" style="--op:.9;  --dx:18px;  --dy:-14px; --r:4deg;"  x="20" y="70"  width="100" height="10" rx="5"/>
-            <rect class="intelligence-panel__signal" x="250" y="130" width="130" height="16" rx="8"/>
-          </svg>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- 01 — Schedule management. Image placeholder pending a real P6 export. -->
+  <section class="section section--spacious">
+    <div class="container">
+      <div class="intelligence-layout">
+        <div class="reveal">
+          <p class="eyebrow">01 · Schedule management</p>
+          <h2 class="mt-2">Schedules people can actually rely on.</h2>
+          <p class="body-lg text-secondary mt-2 measure">Realistic, stakeholder-aligned schedules across the full project lifecycle, with critical-path analysis to catch variances and delay impacts before they compound. Part-time support is available to develop and maintain schedules where a client needs extra scheduling capacity.</p>
+        </div>
+        <div class="intelligence-layout__visual reveal reveal--d2">
+          <img src="../assets/images/project-controls/p6-schedule-sample.png" alt="Sample Primavera P6 schedule and S-curve" style="width:100%; border-radius:8px;">
+          <p class="body-sm text-secondary mt-2" style="text-align:center;"><em>Sample output — created with Primavera P6, using demo data.</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01b — TILOS / linear scheduling. Kept adjacent to Schedule management
+       since it's a detail of that same area. Image placeholder pending a
+       real TILOS export. -->
+  <section class="section section--alt section--spacious">
+    <div class="container">
+      <div class="intelligence-layout">
+        <div class="reveal">
+          <p class="eyebrow">Linear scheduling</p>
+          <h2 class="mt-2">Time-location scheduling with TILOS.</h2>
+          <p class="body-lg text-secondary mt-2 measure">For corridor and infrastructure work — pipelines, rail, roadways, and similar linear projects — TILOS condenses complex, resource-heavy schedules into a single time-location view. Crews, equipment, and sequencing become visible at a glance, making resource allocation and team coordination clearer across long, linear scopes than a traditional Gantt view allows.</p>
+        </div>
+        <div class="intelligence-layout__visual reveal reveal--d2">
+          <img src="../assets/images/project-controls/tilos-linear-schedule-sample.png" alt="Illustrative TILOS linear/time-location schedule example" style="width:100%; border-radius:8px;">
+          <p class="body-sm text-secondary mt-2" style="text-align:center;"><em>Illustrative TILOS example, for prototype purposes only — not PMOlogy's own work. Will be replaced with a PMOlogy-produced example.</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 — Cost & resource management. Image pending from the business owner. -->
+  <section class="section section--spacious">
+    <div class="container">
+      <div class="intelligence-layout">
+        <div class="reveal">
+          <p class="eyebrow">02 · Cost &amp; resource management</p>
+          <h2 class="mt-2">Cost and resourcing tied to the same baseline.</h2>
+          <p class="body-lg text-secondary mt-2 measure">Resource- and cost-loaded schedules, forecasting, and budget tracking tied directly to the same schedule baseline, so variance is visible before it becomes a problem.</p>
+        </div>
+        <div class="intelligence-layout__visual reveal reveal--d2">
+          <img src="../assets/images/project-controls/cost-resource-sample.png" alt="Sample cost and resource usage histogram" style="width:100%; border-radius:8px;">
+          <p class="body-sm text-secondary mt-2" style="text-align:center;"><em>Sample output, using demo data.</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 — Performance tracking. Explicitly names EVM at the business
+       owner's request, plus other tracking methods. Image pending. -->
+  <section class="section section--alt section--spacious">
+    <div class="container">
+      <div class="intelligence-layout">
+        <div class="reveal">
+          <p class="eyebrow">03 · Performance tracking</p>
+          <h2 class="mt-2">Progress measurement you can verify.</h2>
+          <p class="body-lg text-secondary mt-2 measure">Consistent, verifiable progress measurement — Earned Value Management (EVM), CPI/SPI, trend analysis, and milestone tracking among the methods used — so issues surface early enough to act on.</p>
+        </div>
+        <div class="intelligence-layout__visual reveal reveal--d2">
+          <img src="../assets/images/project-controls/performance-tracking-sample.png" alt="Sample CPI/SPI performance tracking chart" style="width:100%; border-radius:8px;">
+          <p class="body-sm text-secondary mt-2" style="text-align:center;"><em>Sample output, using demo data.</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 — Reporting, dashboarding & automation. Carries the interactive
+       Power BI embed directly (merged in 2026-08-12 per business owner's
+       preference — no separate section at the bottom). Publish to Web only,
+       sample data only — see PMOlogy-Brand decision-log D-0012. -->
+  <section class="section section--spacious">
+    <div class="container">
+      <div class="intelligence-layout">
+        <div class="reveal">
+          <p class="eyebrow">04 · Reporting, dashboarding &amp; automation</p>
+          <h2 class="mt-2">A live, interactive sample dashboard.</h2>
+          <p class="body-lg text-secondary mt-2 measure">Real-time dashboards and executive reporting built from a single, structured data pipeline — with repetitive data collection automated wherever it reliably can be. Filter and explore the sample Power BI dashboard alongside — the same kind PMOlogy builds for clients, using sample data only.</p>
+        </div>
+        <div class="intelligence-layout__visual reveal reveal--d2">
+          <div style="border:1px dashed var(--site-border); border-radius:8px; min-height:280px; width:100%; display:flex; align-items:center; justify-content:center;">
+            <p class="body-sm text-secondary"><em>Power BI embed pending — waiting on a "Publish to Web" link for a sample dashboard.</em></p>
+            <!-- Once available:
+            <iframe title="Sample Power BI dashboard" width="100%" height="360" src="PUBLISH_TO_WEB_URL_HERE" frameborder="0" allowFullScreen="true"></iframe>
+            -->
+          </div>
+          <p class="body-sm text-secondary mt-2" style="text-align:center;"><em>Sample dashboard — created with Power BI, using demo data.</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
     <div class="container">
       <div class="grid">
         <div class="grid-3 reveal reveal--d1">
@@ -151,7 +200,7 @@
     </div>
   </section>
 
-  <section class="section section--alt section--compact">
+  <section class="section section--compact">
     <div class="container">
       <div class="grid">
         <div class="grid-3 reveal" style="grid-column: span 12;">
