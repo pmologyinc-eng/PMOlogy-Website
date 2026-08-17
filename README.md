@@ -15,9 +15,9 @@ Then open `http://localhost:8000/`.
 
 ## What this is
 
-- 8 pages matching the approved sitemap: Home, About, Services Overview, PMO Consulting, AI Adoption in Project Controls, Project Controls/Reporting/Automation, Approach, Contact — plus placeholder legal pages and a 404.
+- 7 pages matching the approved sitemap: Home, About, Services Overview, AI Adoption in Project Controls, Project Controls/Reporting/Automation, Approach, Contact — plus placeholder legal pages and a 404. PMO Consulting was decided against as a standalone page — services are presented as Project Controls (detailed) instead; see `site/services/pmo-consulting-alt.html` and `pmo-consulting-brandkit.html` for the earlier explored-but-not-used direction, kept as reference only.
 - English only. Structure is written to be translation-ready (self-contained sections), but no French content or bilingual routing exists yet — that's an explicit pre-WordPress-migration decision, not resolved here.
-- Uses a **temporary placeholder logo** (`site/assets/images/logo-placeholder-TEMPORARY.png`, copied from the brand workspace's approved teal reference PNG, per D-0006). **Must be replaced with the real production SVG before any production launch** — this is a hard gate, not a suggestion.
+- Uses the **real approved production logo** (`site/assets/images/logo.svg`, a flat/no-glow vector built from the brand workspace's approved reference, with a reversed light-text variant for the dark header) and a matching favicon (`site/assets/favicon.svg`, cropped to the Intelligent-O mark).
 - The contact form is a visual prototype only — it does not submit anywhere. Real form handling arrives with the WPForms/WordPress integration.
 - No CMS, theme, or page-builder code exists yet — that's Phase 2 (WordPress/Blocksy/Elementor), gated on this prototype being approved.
 
@@ -40,9 +40,9 @@ If a requirement seems to conflict with what's built here, the brand workspace w
 
 ## Before production launch (hard gates)
 
-- [ ] Replace `logo-placeholder-TEMPORARY.png` with the real production logo, once it exists (Phase 6 in the brand workspace).
-- [ ] Replace `favicon-TEMPORARY.svg` with a real favicon derived from the production logo SVG (simplification for 16/32/48px is an open question — `logo-specifications.md` Section 5). The current one is a plain ring, not the approved Intelligent-O mark.
-- [ ] Resolve the bilingual (English/French) technical approach before WordPress migration.
-- [ ] Draft real Privacy Policy and Terms content (currently placeholder pages, `site/legal/`).
+- [x] Replace the placeholder logo with the real production logo — done (`site/assets/images/logo.svg`).
+- [x] Replace the placeholder favicon with a real one derived from the production logo — done (`site/assets/favicon.svg`).
+- [ ] Resolve the bilingual (English/French) technical approach before WordPress migration. Decision: not done in this static prototype — will be built properly in WordPress with real i18n tooling, to avoid throwaway routing work here.
+- [ ] Draft real Privacy Policy and Terms content (currently draft pages pending legal review, `site/legal/`).
 - [ ] Wire the contact form to a real submission path once WPForms is in place.
 - [ ] Run `docs/qa/asset-generation-checklist.md` against the finished site.
