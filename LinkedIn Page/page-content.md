@@ -24,7 +24,7 @@ Source: `messaging-framework.md` Section 7. **Finalized** 2026-09-04 (decision-l
 > — Performance tracking
 > — Reporting, dashboarding & automation
 > — Flexible, part-time project controls support — for clients who need extra capacity without a full-time hire
-> — AI adoption in project controls: readiness assessment, use-case identification, workflow integration, pilot implementation, and responsible scaling
+> — AI adoption in project delivery: readiness assessment, use-case identification, workflow integration, pilot implementation, and responsible scaling
 >
 > The result: better project visibility and decision-making, with less manual effort, lower disruption, and faster time to value.
 
