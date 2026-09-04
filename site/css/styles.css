@@ -227,6 +227,42 @@ h4, .h4    { font-size: 1.375rem; font-weight: 600; line-height: 1.3; }
    Section 6). See assets/images/logo-dark-text.svg for the light-background
    original if a light-surface placement is ever needed. */
 .brand-mark__logo { height: 3rem; width: auto; display: block; }
+/* Shine sweep on the Intelligent-O: a diagonal highlight band, clipped
+   exactly to the O's own vector silhouette (clipPath#oClip) and faded to
+   transparent at both edges via oSheenGrad, moving through it on a long
+   interval. Deliberately not glow/blur/bloom/shadow (confirmed prohibited
+   on the logo, D-0004) — this is a plain gradient rect clipped to a shape,
+   the same mechanism as a premium metal/glass surface highlight, not a
+   light-emission effect. Holds at its off-screen end position rather than
+   snapping back mid-cycle — the only position jump is the implicit one at
+   the loop restart (100% -> next 0%), which is standard, glitch-free
+   "infinite" animation behavior, unlike an explicit near-duplicate
+   keyframe (e.g. 8% / 8.1%), which some browsers stutter or stall on. */
+@media (prefers-reduced-motion: no-preference) {
+  .brand-mark__o-sheen { animation: o-sheen 2.6s ease-in-out infinite; }
+}
+@keyframes o-sheen {
+  0%  { transform: translateX(-140px); }
+  35% { transform: translateX(320px); }
+  100% { transform: translateX(320px); }
+}
+/* Same sheen mechanism applied to the tagline (clipPath#textClip, reusing
+   the wordmark+tagline path as the clip shape — the band's height only
+   spans the tagline row, so the wordmark letters above are never touched).
+   skewX instead of rotate: translateX under a rotate() drifts vertically
+   over long horizontal travel (fine for the compact O, not for the much
+   wider tagline); skewX keeps y fixed so the band stays confined to the
+   tagline row across the whole sweep. Same duration/timing as o-sheen so
+   both stay in sync — "same time and frequency" as requested. Teal accent
+   tint (not white) so the sweep reads against the white tagline text. */
+@media (prefers-reduced-motion: no-preference) {
+  .brand-mark__text-sheen { animation: t-sheen 2.6s ease-in-out infinite; }
+}
+@keyframes t-sheen {
+  0%  { transform: translateX(0px); }
+  35% { transform: translateX(900px); }
+  100% { transform: translateX(900px); }
+}
 .primary-nav { display: none; }
 .primary-nav ul { display: flex; gap: var(--space-4); align-items: center; }
 /* Underline grows from the left on hover rather than snapping in — a pseudo-
@@ -549,6 +585,15 @@ h4, .h4    { font-size: 1.375rem; font-weight: 600; line-height: 1.3; }
    .clarity-surface tag beneath the panel; no visible change for the Project
    Controls instance, which only ever has one child. */
 .intelligence-layout__visual { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
+
+/* Detail list: the specific-service bullets under each Project Controls
+   group (Schedule Management, Cost & Resource Management, etc.) — a plain
+   dash marker in the accent color, not a checkmark/icon, matching the
+   sitewide "structure through typography, not literal icons" principle
+   (same rationale as .step-flow's numbered badges). */
+.detail-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.detail-list li { position: relative; padding-left: 1.25rem; }
+.detail-list li::before { content: '\2014'; position: absolute; left: 0; color: var(--site-accent); }
 /* Project Controls panel only — frames the "existing systems, before" field
    (Stage 1 of the shared panel) in its own tinted surface. Deliberately not
    applied to the Intelligence Layer panel too: this tone stays rare by
@@ -711,6 +756,39 @@ h4, .h4    { font-size: 1.375rem; font-weight: 600; line-height: 1.3; }
   color: var(--site-text-secondary);
   min-width: 2.5rem;
   font-variant-numeric: tabular-nums;
+}
+
+/* Horizontal 4-step process flow (Approach page). A plain connecting line
+   behind numbered badges — same "structure, not literal icon" principle as
+   .process-list's vertical line above, just laid out horizontally. Badge
+   fill uses Ink against the section's Slate background for contrast (same
+   Ink-on-Slate precedent as .structural-surface), Teal border ties it to
+   the accent hierarchy. No arrows, nodes, or gimmicky connectors. */
+.step-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); position: relative; }
+.step-flow::before {
+  content: '';
+  position: absolute;
+  top: 1.75rem;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  background: var(--site-border);
+}
+.step-flow__item { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-2); }
+.step-flow__badge {
+  width: 3.5rem; height: 3.5rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--site-bg);
+  border: 2px solid var(--site-accent);
+  font-family: var(--font-mono); font-weight: 600; font-size: 1.125rem;
+  color: var(--site-text);
+  position: relative; z-index: 1;
+}
+.step-flow__item h4 { margin-bottom: 0; }
+.step-flow__item p { margin: 0; }
+@media (max-width: 767px) {
+  .step-flow { grid-template-columns: 1fr; gap: var(--space-5); }
+  .step-flow::before { display: none; }
 }
 
 /* ---------- Footer ---------- */
