@@ -23,7 +23,7 @@ Source: `messaging-framework.md` Section 7. **Finalized** 2026-09-04 (decision-l
 > — Cost & resource management
 > — Performance tracking
 > — Reporting, dashboarding & automation
-> — Flexible, part-time project controls support — for clients who need extra capacity without a full-time hire
+> — Scalable, on-demand project controls support — for clients who need extra capacity without a full-time hire
 > — AI adoption in project delivery: readiness assessment, use-case identification, workflow integration, pilot implementation, and responsible scaling
 >
 > The result: better project visibility and decision-making, with less manual effort, lower disruption, and faster time to value.
@@ -94,11 +94,42 @@ LinkedIn's other CTA options ("Visit website," "Sign up," "Register") are less a
 - **Founded:** March 2025.
 - **Company size:** 5–10 employees.
 - **Headquarters:** Montréal, Québec, Canada.
+- **Workplace** (text field): "Hybrid — our team works remotely by default, with in-person availability for client meetings, workshops, and on-site project needs whenever required." (Confirmed by business owner 2026-09-04: "flexibility with client needs and project needs... if in-person meetings or events required we can attend, otherwise working remotely.")
 - **Website URL:** use whichever is the canonical public domain at publish time (custom domain if one exists by then, otherwise the live Vercel URL).
 
 ## 8. Contact info (already public, safe to reuse)
 
 - Email: `info@pmology.ca`
 - Phone: `+1 514 606 0080`
+
+---
+
+## 9. French (Languages tab)
+
+Added 2026-09-04 at the business owner's request. This is a LinkedIn-only addition — separate from the website's own bilingual approach, which `website-content-framework.md`/D-0006 explicitly defer to the future WordPress rebuild's real i18n tooling. LinkedIn's per-language Company Page fields aren't a "routing" decision the way the website's would be, so this doesn't reopen that deferral.
+
+Industry terms (Gestion des coûts et des ressources, Suivi de la performance, Reporting & Tableau de bord) match the vocabulary PMOlogy's previous website already used in French (`reference/Website text English & French Jan 2026.docx`), for continuity with anyone who already knows the brand in French.
+
+**Tagline (FR):**
+```
+Une livraison de projets plus intelligente, fondée sur ce qui fonctionne déjà.
+```
+
+**Overview / Description (FR):**
+```
+PMOlogy aide les organisations à rendre la livraison de projets plus intelligente, efficace et proactive, en combinant une expertise en contrôle de projet avec l'intelligence artificielle, l'automatisation et l'analytique appliquées de façon pratique.
+
+Nous travaillons avec des PMO, des chefs de projet, des équipes d'ingénierie et des propriétaires d'entreprise pour améliorer les processus de livraison sans imposer un remplacement coûteux des systèmes en place. Nous identifions où l'IA, l'automatisation et une meilleure utilisation des données peuvent renforcer les outils existants, réduire le travail manuel, améliorer la visibilité et soutenir une prise de décision plus rapide et mieux informée.
+
+Nos domaines d'expertise :
+— Gestion de l'échéancier, incluant l'analyse des retards et l'analyse d'impact sur les délais (Time Impact Analysis – TIA)
+— Gestion des coûts et des ressources
+— Suivi de la performance
+— Reporting, tableaux de bord et automatisation
+— Soutien en contrôle de projet évolutif et à la demande — pour les clients ayant besoin de capacité supplémentaire sans embaucher à temps plein
+— Adoption de l'IA dans la livraison de projets : évaluation de la maturité, identification des cas d'usage, intégration aux processus, mise en œuvre pilote et mise à l'échelle responsable
+
+Résultat : une meilleure visibilité de projet et une prise de décision améliorée, avec moins d'effort manuel, moins de perturbation, et une valeur obtenue plus rapidement.
+```
 
 (Both live on `site/contact.html` already.)
