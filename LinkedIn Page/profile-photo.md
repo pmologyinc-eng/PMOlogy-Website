@@ -1,9 +1,9 @@
 # PMOlogy — LinkedIn Profile Photo (square logo slot)
 
-LinkedIn's company-page profile photo is square (recommended 300×300px minimum). The favicon asset is already cropped exactly for this: `site/assets/favicon.svg` — a square crop of the Intelligent-O mark, no wordmark or tagline, viewBox `493 298 182 182`.
+**Done.** LinkedIn's company-page profile photo is square (recommended 300×300px minimum). The favicon asset (`site/assets/favicon.svg` — a square crop of the Intelligent-O mark, no wordmark or tagline) has been exported to PNG at 800×800px in three background options, saved in `assets/` next to this file:
 
-## To produce the file LinkedIn needs
+- `assets/profile-photo-transparent.png` — genuinely transparent background (verified alpha channel, not a white fill) — **recommended default**, adapts to LinkedIn's own page chrome.
+- `assets/profile-photo-paper-bg.png` — solid Paper (`#F8FAFC`) background.
+- `assets/profile-photo-ink-bg.png` — solid Ink (`#0F172A`) background, alternate if a dark square reads better in context.
 
-LinkedIn requires PNG/JPG, not SVG — export `favicon.svg` at 300×300px (or larger, e.g. 600×600px for retina) as PNG with a transparent or Paper (`#F8FAFC`) background. Ink (`#0F172A`) background is the alternate if a dark square reads better against LinkedIn's white page chrome — test both before finalizing, don't assume.
-
-No new design work needed here — this is an export/format step from an asset that already exists and is already approved for exactly this "small, square, icon-only" use case (that's what a favicon is for).
+Rendered directly from the production SVG (Chrome headless, not a lossy raster conversion), so edges are clean and the icon's ring gap is a true cutout rather than a hardcoded white fill — confirmed by how cleanly it sits on both the Paper and Ink backgrounds above. Upload whichever variant looks best once you see it in LinkedIn's circular crop preview — transparent is the recommended starting point.

@@ -15,9 +15,9 @@ Then open `http://localhost:8000/`.
 
 ## What this is
 
-- 7 pages matching the approved sitemap: Home, About, Services Overview, AI Adoption in Project Controls, Project Controls/Reporting/Automation, Approach, Contact — plus placeholder legal pages and a 404. PMO Consulting was decided against as a standalone page — services are presented as Project Controls (detailed) instead; see `site/services/pmo-consulting-alt.html` and `pmo-consulting-brandkit.html` for the earlier explored-but-not-used direction, kept as reference only.
+- 8 pages matching the approved sitemap: Home, About, Services Overview, AI Adoption in Project Delivery, Project Controls/Reporting/Automation, Approach, Portfolio, Contact — plus placeholder legal pages and a 404. PMO Consulting was decided against as a standalone page — services are presented as Project Controls (detailed) instead; see `site/services/pmo-consulting-alt.html` and `pmo-consulting-brandkit.html` for the earlier explored-but-not-used direction, kept as reference only.
 - English only. Structure is written to be translation-ready (self-contained sections), but no French content or bilingual routing exists yet — that's an explicit pre-WordPress-migration decision, not resolved here.
-- Uses the **real approved production logo** (`site/assets/images/logo.svg`, a flat/no-glow vector built from the brand workspace's approved reference, with a reversed light-text variant for the dark header) and a matching favicon (`site/assets/favicon.svg`, cropped to the Intelligent-O mark).
+- Uses the **real, final production logo** (`site/assets/images/logo.svg`, a flat/no-glow vector built from the brand workspace's approved reference, with a reversed light-text variant for the dark header) and a matching favicon (`site/assets/favicon.svg`, cropped to the Intelligent-O mark). Confirmed final by the business owner 2026-09-06 (brand-workspace decision-log D-0018). A full-color raster reference copy also lives at `site/assets/images/pmology-logo-reference-teal.png` (sourced from `PMOlogy-Brand/assets/logos/approved/pmology-logo-approved-reference-teal.png`, the canonical source of record — kept here for convenience wherever a PNG is needed, e.g. LinkedIn assets, not as a second source of truth).
 - The contact form is a visual prototype only — it does not submit anywhere. Real form handling arrives with the WPForms/WordPress integration.
 - No CMS, theme, or page-builder code exists yet — that's Phase 2 (WordPress/Blocksy/Elementor), gated on this prototype being approved.
 
@@ -33,7 +33,7 @@ All requirements live in the brand workspace (`/Users/jjr/PMOlogy-Brand`), which
 | Platform direction | `website/integration/website-platform-requirements.md` |
 | Color tokens | `assets/brand-kit/design-tokens/pmology-color-tokens.css` |
 | Typography system | `brand-system/typography/typography-system.md` |
-| Logo rules (for when the real asset exists) | `brand-system/logo/logo-specifications.md` |
+| Logo rules | `brand-system/logo/logo-specifications.md` |
 | Pre-launch QA | `docs/qa/asset-generation-checklist.md` |
 
 If a requirement seems to conflict with what's built here, the brand workspace wins — flag it rather than resolving it locally.
