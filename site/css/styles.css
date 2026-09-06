@@ -356,6 +356,9 @@ h4, .h4    { font-size: 1.375rem; font-weight: 600; line-height: 1.3; }
   background: var(--site-accent);
   color: var(--pmology-color-ink);
 }
+/* Lighter tint of AI Teal (--pmology-color-teal, #14B8A6) for hover feedback only —
+   same tint-not-new-hue precedent as .card:hover's dark-neutral tints above;
+   never used for identity/logo purposes, only this one interactive state. */
 .btn--primary:hover { background: #3fcab9; }
 /* Secondary/outline button flips to Paper-on-dark, since the page is now dark by default. */
 .btn--secondary {
