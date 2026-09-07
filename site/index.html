@@ -45,13 +45,18 @@
 <main id="main">
 
   <section class="hero">
-    <svg class="hero__plates" viewBox="0 0 420 380" aria-hidden="true" focusable="false">
-      <rect class="plate plate--1" x="40"  y="300" width="250" height="12" rx="6"/>
-      <rect class="plate plate--2" x="75"  y="258" width="290" height="12" rx="6"/>
-      <rect class="plate plate--3" x="15"  y="216" width="230" height="12" rx="6"/>
-      <rect class="plate plate--4" x="60"  y="174" width="310" height="12" rx="6"/>
-      <rect class="plate plate--5" x="110" y="100" width="280" height="18" rx="9"/>
-    </svg>
+    <!-- Signature visual (replaces the former "hero__plates" SVG stack): an
+         ambient loop of layered project-delivery dashboards — schedule bars
+         settling into alignment, gauges filling, one Teal signal reading last.
+         Same positioning idea as the plates ("the intelligence layer PMOlogy
+         adds on top of existing systems"); still the one place the page spends
+         real visual boldness. Muted / playsinline / poster-first; the static
+         poster stands in on small screens and under reduced motion. -->
+    <video class="hero__video" autoplay muted loop playsinline preload="metadata"
+           poster="assets/video/hero-poster.jpg" aria-hidden="true">
+      <source src="assets/video/hero-loop.mp4" type="video/mp4">
+    </video>
+    <div class="hero__scrim" aria-hidden="true"></div>
     <div class="container hero__content">
       <p class="eyebrow">Visibility · Intelligence · Delivery</p>
       <h1 class="display">A smarter intelligence layer for project delivery.</h1>
