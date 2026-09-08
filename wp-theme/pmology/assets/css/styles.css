@@ -1,0 +1,1344 @@
+/**
+ * PMOlogy — Static Prototype Stylesheet (Dark-Forward Variant)
+ *
+ * Design system source of truth (brand workspace, /Users/jjr/PMOlogy-Brand):
+ *   - Colors:      brand-system/colors/color-system.md, assets/brand-kit/design-tokens/pmology-color-tokens.css
+ *   - Typography:  brand-system/typography/typography-system.md
+ *   - Layout:      website/design/website-design-brief.md
+ * Token values below are a synced copy — if the brand workspace's token file
+ * changes, this block must be updated to match. Do NOT introduce colors, fonts,
+ * or logo geometry beyond what those documents approve.
+ *
+ * DARK-FORWARD NOTE: the token semantics from the brand workspace are preserved
+ * unchanged (background-primary still means Paper, background-dark still means
+ * Ink, exactly as color-system.md documents them). What changed is which one
+ * this *site* uses as its default page surface — a website-implementation
+ * choice, applied below via component rules, not by redefining the tokens
+ * themselves. This keeps the synced token block honest against its source.
+ *
+ * Consequence worth flagging back to the brand workspace: AI Teal reads
+ * strongly on Ink (~7.2:1, color-system.md Section 3) and weakly on Paper
+ * (~2.4:1) — going dark-forward means Teal can now be used far more freely
+ * (link text, focus rings, small UI detail) than it could on a light-forward
+ * site. The reverse is true for Tech Blue, which is why the focus-ring color
+ * changes from Blue to Teal in this variant (see --pmology-color-focus below) —
+ * same underlying rule as color-system.md, just applied to the new default
+ * surface. This is a real implication of the dark-forward decision that
+ * color-system.md's focus-color rationale doesn't currently anticipate.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@500&display=swap');
+
+:root {
+  /* Foundational tokens (synced from pmology-color-tokens.css) */
+  --pmology-color-ink: #0F172A;
+  --pmology-color-slate: #1E293B;
+  --pmology-color-paper: #F8FAFC;
+  --pmology-color-teal: #14B8A6;
+  --pmology-color-blue: #003DA5;
+
+  /* Semantic aliases — unchanged meaning from the brand workspace token file */
+  --pmology-color-background-primary: var(--pmology-color-paper);
+  --pmology-color-background-dark: var(--pmology-color-ink);
+  --pmology-color-text-primary: var(--pmology-color-ink);
+  --pmology-color-text-secondary: var(--pmology-color-slate);
+  --pmology-color-accent-primary: var(--pmology-color-teal);
+  --pmology-color-accent-secondary: var(--pmology-color-blue);
+  --pmology-color-border-default: var(--pmology-color-slate);
+
+  /* LIGHT-FORWARD site variables — see docs/palette-light-extension.md.
+     Accents unchanged (Teal fills, Blue links/support). New values are neutrals
+     or tints of the two hues, never a new hue. Dark surfaces (footer, hero and
+     CTA anchor boxes) use the --dark-* set, which is the untouched dark kit. */
+  --site-bg: var(--pmology-color-paper);          /* page default: Paper */
+  --site-bg-alt: #EEF2F8;                          /* Mist — tint surface / card ground */
+  --site-text: var(--pmology-color-ink);           /* primary text on light: Ink */
+  --site-text-secondary: #46536A;                  /* Ink-70 — secondary text on light (~7:1 on Paper) */
+  --site-text-meta: #7A8699;                       /* Ink-45 — meta / caption, large text only */
+  --site-border: #DDE4EE;                          /* Line — hairline on light */
+  --structural-surface: #E7EEFA;                   /* Blue-wash — "existing systems" ground on light */
+  --site-accent: var(--pmology-color-teal);        /* Teal — FILLS only on light (fails as text) */
+  --site-link: var(--pmology-color-blue);          /* Tech Blue — text links / small interactive on light (~8:1) */
+  --blue-wash: #E7EEFA;                            /* pale Blue box = existing systems / foundation */
+  --teal-wash: #DEF3EE;                            /* pale Teal box = the intelligence layer we add */
+  --color-danger: #C23934;                         /* form-validation errors only (semantic, not an accent) */
+  --pmology-color-focus: var(--pmology-color-blue);/* Blue focus ring — strong on Paper */
+
+  /* Dark surfaces on the light site — the dark kit, unchanged */
+  --dark-bg: var(--pmology-color-ink);
+  --dark-surface: var(--pmology-color-slate);
+  --dark-border: #2C3A50;
+  --dark-text: var(--pmology-color-paper);
+  --dark-text-2: #B9C3D4;
+
+  /* Type */
+  --font-sans: 'IBM Plex Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  /* Restricted to technical identifiers/numerals only (typography-system.md
+     Section 3) — .concept-pair__mark, .process-item::before. Never body copy
+     or headings. */
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+
+  /* Spacing scale (8px base, per website-design-brief.md Section 5) */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-12: 96px;
+  --space-14: 112px; /* extends the same 8px scale — .section--spacious only */
+
+  --container-max: 1280px;
+  --content-measure: 68ch;
+
+  /* Motion — three named curves for three different kinds of movement,
+     rather than one curve reused everywhere:
+       entrance:    something arriving for the first time (reveal, plate-in,
+                    the panel's mark/signal/decision-mark animations)
+       activation:  the intelligence layer "doing something" — a brief,
+                    deliberate confirm-pulse (panel-signal-emphasis only)
+       interaction: hover/focus feedback — quick, symmetric, responsive
+                    (nav underline, card lift, link-arrow, footer links) */
+  --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-activation: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-interaction: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--site-text);
+  background: var(--site-bg);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3, h4, p, figure { margin: 0; }
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--pmology-color-focus);
+  outline-offset: 2px;
+}
+
+/* ---------- Type scale (digital, from typography-system.md Section 4) ---------- */
+/* Bold (700) reserved for this one element only — the hero headline is the
+   page's single moment of maximum weight, per the typography system's own
+   rule ("Bold — reserved for major headings, key metrics, and limited
+   emphasis only"). Every other heading below stays at SemiBold/Medium. */
+.display   { font-size: 3.5rem;   font-weight: 700; line-height: 1.1;  letter-spacing: -0.02em; }
+h1, .h1    { font-size: 2.5rem;   font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
+h2, .h2    { font-size: 2rem;     font-weight: 600; line-height: 1.2;  letter-spacing: -0.01em; }
+h3, .h3    { font-size: 1.5rem;   font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; }
+/* Bumped from 1.25rem/500 — at that size/weight H4 sat only 2px above Body
+   Large with a lighter weight, the smallest, weakest step in the whole
+   scale, right where card/concept-pair titles need a clear break from
+   surrounding body copy. */
+h4, .h4    { font-size: 1.375rem; font-weight: 600; line-height: 1.3; }
+/* Neutral, not Teal: an eyebrow is a static section label, not an interactive
+   element, and it repeats 3-4x per page. Reserving Teal for things a visitor
+   can actually click/focus (links, buttons, nav state) keeps it meaningful —
+   see hero__rule and the card/theme-item/process-item rules below for the
+   same logic applied consistently across the site. */
+.eyebrow   {
+  font-size: 0.875rem; font-weight: 600; line-height: 1.4;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--site-text-secondary);
+}
+.body-lg   { font-size: 1.125rem; font-weight: 400; line-height: 1.6; }
+.body      { font-size: 1rem;     font-weight: 400; line-height: 1.6; }
+.body-sm   { font-size: 0.875rem; font-weight: 400; line-height: 1.55; }
+
+@media (max-width: 640px) {
+  .display { font-size: 2.5rem; }
+  h1, .h1  { font-size: 2rem; }
+  h2, .h2  { font-size: 1.5rem; }
+}
+
+/* ---------- Layout ---------- */
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+.section { padding-block: var(--space-12); }
+/* Section-rhythm modifiers — homepage only, applied per-section rather than
+   changing the shared .section default (which every other page also uses).
+   .section--spacious gives the two panel sections (Project Controls,
+   Intelligence Layer) more room to breathe as the page's main visual
+   moments; .section--compact tightens the quieter connective sections
+   (Responsible AI, closing CTA) so the difference is felt, not just implied
+   by background color. */
+.section--spacious { padding-block: var(--space-14); }
+.section--compact { padding-block: var(--space-8); }
+@media (max-width: 640px) {
+  .section,
+  .section--spacious,
+  .section--compact {
+    padding-block: var(--space-6);
+  }
+}
+.section--alt { background: var(--site-bg-alt); }
+.measure { max-width: var(--content-measure); }
+.stack > * + * { margin-top: var(--space-3); }
+.grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(12, 1fr);
+}
+.grid-3 { grid-column: span 12; }
+@media (min-width: 768px) {
+  .grid-3 { grid-column: span 4; }
+}
+/* Two-up variant — same stack-on-mobile behavior as .grid-3, but span 6 at
+   desktop instead of span 4. Used where a section deliberately has 2 items,
+   not 3, so the layout reads as a considered pair rather than a card short
+   of a row (e.g. the Services Overview cards). */
+.grid-2 { grid-column: span 12; }
+@media (min-width: 768px) {
+  .grid-2 { grid-column: span 6; }
+}
+
+/* ---------- Header ---------- */
+/* Faint Teal-tinted hairline instead of a plain neutral border — same
+   rgba(20,184,166,…) low-alpha technique already used by .nav-toggle:hover,
+   not a new pattern. A quiet way to tie the header into the site's
+   established "Teal is the thing PMOlogy adds" language without any new
+   element, motion, or dependency. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--site-bg);
+  border-bottom: 1px solid rgba(20, 184, 166, 0.35);
+}
+.site-header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-2);
+  gap: var(--space-3);
+}
+.brand-mark {
+  display: flex; align-items: center; gap: var(--space-1);
+  font-weight: 600; font-size: 1.75rem; letter-spacing: -0.01em; color: var(--site-text);
+}
+.brand-mark .brand-mark__o { color: var(--site-accent); }
+/* Approved logo (assets/images/logo.svg) — reversed/light-text variant built for
+   this dark header background, since the source reference PNGs only ship a
+   dark-navy wordmark meant for light backgrounds (logo-specifications.md
+   Section 6). See assets/images/logo-dark-text.svg for the light-background
+   original if a light-surface placement is ever needed. */
+.brand-mark__logo { height: 3rem; width: auto; display: block; }
+/* Shine sweep on the Intelligent-O: a diagonal highlight band, clipped
+   exactly to the O's own vector silhouette (clipPath#oClip) and faded to
+   transparent at both edges via oSheenGrad, moving through it on a long
+   interval. Deliberately not glow/blur/bloom/shadow (confirmed prohibited
+   on the logo, D-0004) — this is a plain gradient rect clipped to a shape,
+   the same mechanism as a premium metal/glass surface highlight, not a
+   light-emission effect. Holds at its off-screen end position rather than
+   snapping back mid-cycle — the only position jump is the implicit one at
+   the loop restart (100% -> next 0%), which is standard, glitch-free
+   "infinite" animation behavior, unlike an explicit near-duplicate
+   keyframe (e.g. 8% / 8.1%), which some browsers stutter or stall on. */
+@media (prefers-reduced-motion: no-preference) {
+  .brand-mark__o-sheen { animation: o-sheen 2.6s ease-in-out infinite; }
+}
+@keyframes o-sheen {
+  0%  { transform: translateX(-140px); }
+  35% { transform: translateX(320px); }
+  100% { transform: translateX(320px); }
+}
+/* Same sheen mechanism applied to the tagline (clipPath#textClip, reusing
+   the wordmark+tagline path as the clip shape — the band's height only
+   spans the tagline row, so the wordmark letters above are never touched).
+   skewX instead of rotate: translateX under a rotate() drifts vertically
+   over long horizontal travel (fine for the compact O, not for the much
+   wider tagline); skewX keeps y fixed so the band stays confined to the
+   tagline row across the whole sweep. Same duration/timing as o-sheen so
+   both stay in sync — "same time and frequency" as requested. Teal accent
+   tint (not white) so the sweep reads against the white tagline text. */
+@media (prefers-reduced-motion: no-preference) {
+  .brand-mark__text-sheen { animation: t-sheen 2.6s ease-in-out infinite; }
+}
+@keyframes t-sheen {
+  0%  { transform: translateX(0px); }
+  35% { transform: translateX(900px); }
+  100% { transform: translateX(900px); }
+}
+.primary-nav { display: none; }
+.primary-nav ul { display: flex; gap: var(--space-4); align-items: center; }
+/* Underline grows from the left on hover rather than snapping in — a pseudo-
+   element instead of border-bottom so the width can animate. The current page
+   shows its underline already in place (no "from" state to transition from
+   on load, so it just paints there — no unwanted animation on page load). */
+.primary-nav a {
+  position: relative;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  padding-block: var(--space-1);
+}
+.primary-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background: var(--site-link);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 250ms var(--ease-interaction);
+}
+.primary-nav a:hover::after,
+.primary-nav a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+@media (min-width: 900px) {
+  .primary-nav { display: block; }
+  .nav-toggle { display: none; }
+}
+/* .site-header prefix (not just .header-cta) is deliberate: .btn's own
+   `display: inline-flex` sits later in the cascade and has equal specificity
+   to a bare `.header-cta` selector, so it was silently winning and the button
+   never actually hid below 900px — confirmed by testing a real narrow
+   viewport, not visible at desktop width. The extra class beats .btn's
+   specificity regardless of source order. */
+.site-header .header-cta { display: none; }
+@media (min-width: 900px) { .site-header .header-cta { display: inline-flex; } }
+
+.nav-toggle {
+  background: none; border: 1px solid var(--site-border); color: var(--site-text);
+  border-radius: 6px; padding: var(--space-1) var(--space-2); font: inherit; cursor: pointer;
+  transition: border-color 200ms var(--ease-interaction), background-color 200ms var(--ease-interaction);
+}
+.nav-toggle:hover {
+  border-color: var(--site-accent);
+  background: rgba(20, 184, 166, 0.08);
+}
+.mobile-nav {
+  display: none;
+  border-top: 1px solid var(--site-border);
+  padding: var(--space-2) 0;
+}
+.mobile-nav.is-open { display: block; }
+.mobile-nav ul { display: flex; flex-direction: column; gap: var(--space-2); }
+/* Small indent-on-touch nudge — a lightweight equivalent of the desktop
+   underline, appropriate for a tap target rather than a hover target. */
+.mobile-nav a {
+  font-size: 1rem; font-weight: 500; display: block; padding: var(--space-1) 0;
+  border-left: 2px solid transparent;
+  transition: color 150ms var(--ease-interaction), border-color 150ms var(--ease-interaction), padding-left 150ms var(--ease-interaction);
+}
+.mobile-nav a:hover,
+.mobile-nav a:active,
+.mobile-nav a[aria-current="page"] {
+  color: var(--site-link);
+  border-left-color: var(--site-link);
+  padding-left: var(--space-2);
+}
+@media (min-width: 900px) { .mobile-nav { display: none !important; } }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 120ms var(--ease-interaction), border-color 120ms var(--ease-interaction), color 120ms var(--ease-interaction);
+}
+/* Ink text on Teal background: ~7.2:1 contrast (validated in color-system.md).
+   Unchanged by the dark-forward variant — the button itself is a filled Teal
+   element regardless of the page background around it. */
+.btn--primary {
+  background: var(--site-accent);
+  color: var(--pmology-color-ink);
+}
+/* Lighter tint of AI Teal (--pmology-color-teal, #14B8A6) for hover feedback only —
+   same tint-not-new-hue precedent as .card:hover's dark-neutral tints above;
+   never used for identity/logo purposes, only this one interactive state. */
+.btn--primary:hover { background: #3fcab9; }
+/* Secondary/outline button flips to Paper-on-dark, since the page is now dark by default. */
+.btn--secondary {
+  background: transparent;
+  color: var(--site-text);
+  border-color: var(--site-text);
+}
+.btn--secondary:hover { background: var(--site-text); color: var(--pmology-color-paper); }
+
+/* ---------- Hero ---------- */
+.hero {
+  padding-block: var(--space-12);
+  border-bottom: 1px solid var(--site-border);
+  position: relative;
+  overflow: hidden;
+}
+/*
+ * Signature element: "the layers" — a stack of horizontal plates, the bottom
+ * four muted and the top one in Teal, deliberately thicker and offset further
+ * out. This is a literal, structural expression of the core positioning line
+ * ("adding an intelligence layer to project delivery," "built on what already
+ * works") — the muted plates are the existing systems; the Teal plate is what
+ * PMOlogy adds on top. Not decoration: this is the one place on the site that
+ * spends real visual boldness, per the "spend your boldness in one place" rule
+ * — everything else on the page stays quiet around it.
+ *
+ * No logo geometry (this is plain rectangles, not the Intelligent-O device),
+ * no glow/gradient (D-0004 applied consistently here), no literal tech/AI
+ * iconography. Purely structural shapes.
+ */
+.hero__plates {
+  position: absolute;
+  top: 50%;
+  right: -24px;
+  transform: translateY(-50%);
+  width: 460px;
+  max-width: 50vw;
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+}
+/* Tech Blue, not an invented gray tint: color-system.md Section 3 explicitly
+   sanctions Blue as "a larger filled shape/graphic element" on dark
+   backgrounds even though it fails text contrast there — this is exactly
+   that case. It also gives Blue a real, permanent role instead of sitting
+   unused in the token file: Blue reads as "the existing systems," varying
+   only in opacity (depth), while Teal — full opacity, drawn last — is
+   still the one thing being "added." No new hex introduced anywhere below.
+   Opacity floor raised from .35 to .5 (and the steps compressed upward to
+   match) — at the old floor, Blue at low opacity against Ink was crushing
+   toward near-black rather than reading as a legible second hue; still the
+   same #003DA5, only the depth range shifted so the darkest plate stays
+   recognizably blue, not just "darker ink." */
+.hero__plates .plate { fill: var(--pmology-color-blue); opacity: 0.5; }
+.hero__plates .plate--2, .hero__plates .plate--3 { opacity: 0.65; }
+.hero__plates .plate--4 { opacity: 0.85; }
+.hero__plates .plate--5 { fill: var(--site-accent); opacity: 1; }
+
+/* Entrance: plates arrive bottom-to-top, Teal layer last and travels furthest —
+   it's the one being "added." Fully skipped (plates simply render visible,
+   no animation at all) when the visitor has motion reduced. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__plates .plate {
+    opacity: 0;
+    transform: translateX(44px);
+    animation: plate-in 740ms var(--ease-entrance) forwards;
+  }
+  .hero__plates .plate--1 { animation-delay: 90ms; }
+  .hero__plates .plate--2 { animation-delay: 180ms; }
+  .hero__plates .plate--3 { animation-delay: 270ms; }
+  .hero__plates .plate--4 { animation-delay: 360ms; }
+  /* Teal layer gets a deliberate pause before it arrives — not just "next in
+     the stagger" but a distinct, added beat, reinforcing that it's layered on
+     top of the existing (Blue) stack rather than simply the fifth item in a
+     sequence. Longer travel distance for the same reason. */
+  .hero__plates .plate--5 { animation-delay: 560ms; transform: translateX(72px); }
+}
+@keyframes plate-in {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Dropped below tablet width — a text-first mobile hero stays clean rather
+   than fighting the graphic for space. */
+@media (max-width: 1023px) {
+  .hero__plates { display: none; }
+}
+
+/* Interior-page hero accent — deliberately NOT the animated plate stack.
+   That signature (stagger-in + scroll parallax) is spent once, on Home;
+   repeating it on every page dilutes it into wallpaper. This is a single
+   static bar, same pill shape and Teal fill as plate--5, so it still reads
+   as "part of the same visual family" without competing for attention or
+   carrying any motion. */
+.hero__rule {
+  display: block;
+  width: 48px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--site-accent);
+  margin-bottom: var(--space-2);
+}
+
+/* Responsible AI section only: a single static full-width divider between
+   the section's intro copy and its three governance principles — the one
+   piece of separation this deliberately quiet section gets. No motion, no
+   color beyond the existing neutral border token; restraint is the point. */
+.principle-rule {
+  height: 1px;
+  background: var(--site-border);
+  width: 100%;
+}
+
+.hero__content { position: relative; z-index: 1; max-width: 46rem; }
+.hero .eyebrow { margin-bottom: var(--space-2); }
+.hero h1 { margin-bottom: var(--space-3); }
+.hero .body-lg { color: var(--site-text-secondary); margin-bottom: var(--space-4); }
+.hero__ctas { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--site-bg-alt);
+  border: 1px solid var(--site-border);
+  border-top: 3px solid var(--site-border);
+  border-radius: 8px;
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 100%;
+  transition: background-color 200ms var(--ease-interaction), border-color 200ms var(--ease-interaction);
+}
+/* Hover: card lightens one step (still the same dark neutral family, not a new
+   color) and its border brightens — reads as "lifted," not glowing. The
+   translateY lift itself is gated separately below so it can be skipped under
+   reduced motion while the color/border response stays (color changes aren't
+   the kind of motion that guidance is concerned with).
+   Teal now only appears on the top border on hover, not at rest — every card
+   used to carry it permanently, which meant it wasn't signaling anything.
+   Making it a hover response ties the accent to "this is interactive"
+   consistent with how it's used everywhere else on the site. */
+.card:hover {
+  background: #FFFFFF;
+  border-color: #C6D2E6;
+  border-top-color: var(--site-accent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card { transition: background-color 200ms var(--ease-interaction), border-color 200ms var(--ease-interaction), transform 200ms var(--ease-interaction); }
+  .card:hover { transform: translateY(-4px); }
+}
+/* Service icons: small versions of the same "muted bars + one Teal bar" language
+   as the hero plates, not a new icon system — reuses the exact plate hex values
+   (#2C394E/#33415A/#3C4C69/Teal) so nothing new is introduced. Each mark stays
+   purely geometric per brand-discovery.md's forbidden-cliché list (no nodes,
+   arrows, gears, etc.) and expresses its service through structure alone. */
+.service-icon { width: 40px; height: 40px; display: block; }
+/* Same Blue-for-"existing", Teal-for-"added" logic as the hero plates above. */
+.service-icon .bar--1 { fill: var(--pmology-color-blue); opacity: 0.6; }
+.service-icon .bar--2 { fill: var(--pmology-color-blue); opacity: 0.85; }
+.service-icon .bar--accent { fill: var(--site-accent); }
+.card h3, .card h4 { margin-bottom: 0; color: var(--site-text); }
+.card p { color: var(--site-text-secondary); }
+.bio-photo { width: 144px; height: 144px; border-radius: 50%; object-fit: cover; border: 1px solid var(--site-border); }
+.card__link { font-weight: 600; font-size: 0.9375rem; margin-top: auto; color: var(--site-link); }
+.card__link::after {
+  content: "→";
+  display: inline-block;
+  margin-left: 0.35em;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card__link::after { transition: transform 200ms var(--ease-interaction); }
+  .card:hover .card__link::after { transform: translateX(4px); }
+}
+
+/* Same link-with-arrow visual language as .card__link, for use outside a
+   .card — .card__link's arrow motion is deliberately scoped to a hovered
+   ancestor .card and never fires on its own, so it was the wrong class to
+   reuse standalone (a homepage build issue, now corrected). Self-contained
+   :hover/:focus-visible trigger instead of depending on a parent. */
+.link-arrow { display: inline-flex; align-items: center; font-weight: 600; font-size: 0.9375rem; color: var(--site-link); }
+.link-arrow::after { content: "→"; display: inline-block; margin-left: 0.35em; }
+@media (prefers-reduced-motion: no-preference) {
+  .link-arrow::after { transition: transform 200ms var(--ease-interaction); }
+  .link-arrow:hover::after, .link-arrow:focus-visible::after { transform: translateX(4px); }
+}
+
+/* ---------- Project Intelligence Visualization ----------
+ * Two related but visually distinct panels for the homepage's Project
+ * Controls and Intelligence Layer sections (docs/landing-page-storyboard.md
+ * Section 2/3) — same rect-primitive language and Blue/Teal grammar as
+ * .hero__plates and .service-icon, but deliberately different compositions,
+ * not one geometry reused twice, so the two sections read as two stages of
+ * one story rather than the same picture shown again:
+ *   .intelligence-panel--resolve → Project Controls: a wider, six-mark
+ *                                   fragmented field tightens into alignment,
+ *                                   then a single Teal signal arrives last.
+ *                                   "Structured visibility," created.
+ *   .intelligence-panel--insight → Intelligence Layer: a smaller, already-
+ *                                   settled four-mark field (visibility
+ *                                   already achieved) feeding one Teal
+ *                                   signal, which produces several short
+ *                                   Teal marks that appear and travel
+ *                                   outward from it. "Insight and decisions,"
+ *                                   resulting.
+ * Deliberately not a dashboard: no axes, no legend, no RAG colors, no
+ * numerals, no hover/tooltip affordance. Default (no media query) state
+ * renders fully resolved with no motion at all, so reduced-motion visitors
+ * and non-JS visitors simply see the finished panel — consistent with the
+ * .reveal/.hero__plates pattern elsewhere.
+ */
+.intelligence-layout {
+  display: grid;
+  gap: var(--space-4);
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 900px) {
+  .intelligence-layout { grid-template-columns: 1.1fr 0.9fr; }
+  /* Intelligence Layer section: DOM keeps text first (correct reading order
+     on every viewport, including mobile — see .intelligence-layout__visual
+     source position in index.html), CSS order flips the visual to the left
+     column at desktop width only, preserving the alternating left/right
+     rhythm between the two sections without ever showing the abstract panel
+     before its explanatory text on narrow viewports. */
+  .intelligence-layout--reverse .intelligence-layout__visual { order: -1; }
+}
+/* flex-direction: column so the Intelligence Layer instance can stack its
+   .clarity-surface tag beneath the panel; no visible change for the Project
+   Controls instance, which only ever has one child. */
+.intelligence-layout__visual { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
+
+/* Reporting & automation section: a contained motion study in the visual slot,
+   sized like the sample-output images beside it (full column width, 8px radius,
+   16:9). The still image swaps in for the loop under reduced-motion. */
+.pc-media { width: 100%; border-radius: 8px; overflow: hidden; background: var(--dark-bg); }
+.pc-media__vid,
+.pc-media__still { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.pc-media__still { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .pc-media__vid { display: none; }
+  .pc-media__still { display: block; }
+}
+
+/* "Our approach" (#layer): a quiet ambient loop in the visual slot beside the
+   intro. Decorative (aria-hidden). No poster: it is hidden outright on reduced
+   motion and on narrow screens, where the section reverts to text-only, so a
+   still frame is never needed. Framed with a hairline + soft shadow so the
+   pale render lifts off the wash-teal box.
+
+   Two equal columns across the full box width: the panel fills its half so it
+   reads at a proper size and its right edge meets the box edge (no gap on the
+   right), with a comfortable gutter to the text. */
+.pm-approach-media {
+  width: 100%;
+  border-radius: 12px; overflow: hidden;
+  background: var(--dark-bg); aspect-ratio: 16 / 9;
+  border: 1px solid color-mix(in srgb, var(--site-accent) 25%, var(--site-border));
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 12px 32px rgba(15, 23, 42, 0.10);
+}
+.pm-approach-media__vid { display: block; width: 100%; height: 100%; object-fit: cover; }
+#layer .intelligence-layout {
+  gap: clamp(40px, 4vw, 64px);
+  align-items: start;
+}
+/* Panel stays pinned to the top; the intro text sits vertically centred against
+   the taller video panel (still left-aligned). */
+#layer .intelligence-layout > .reveal { align-self: center; }
+@media (min-width: 900px) {
+  #layer .intelligence-layout { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 899px) {
+  #layer .intelligence-layout__visual { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #layer .intelligence-layout__visual { display: none; }
+}
+
+/* Detail list: the specific-service bullets under each Project Controls
+   group (Schedule Management, Cost & Resource Management, etc.) — a plain
+   dash marker in the accent color, not a checkmark/icon, matching the
+   sitewide "structure through typography, not literal icons" principle
+   (same rationale as .step-flow's numbered badges). */
+.detail-list { display: flex; flex-direction: column; gap: var(--space-2); }
+.detail-list li { position: relative; padding-left: 1.25rem; }
+.detail-list li::before { content: '\2014'; position: absolute; left: 0; color: var(--site-link); }
+/* Project Controls panel only — frames the "existing systems, before" field
+   (Stage 1 of the shared panel) in its own tinted surface. Deliberately not
+   applied to the Intelligence Layer panel too: this tone stays rare by
+   design (docs/design-system-hybrid-direction.md), one instance on the
+   whole page, or it stops signaling "existing systems" and becomes generic
+   wallpaper. No border, no radius — the Blue-tinted ground itself carries
+   the separation from the surrounding Ink section; a drawn box around it
+   reads as a dashboard tile, which this is deliberately not. Asymmetric,
+   generous padding (taller than wide) so it reads as a structural field the
+   panel sits within, not a UI card sized to its contents. */
+.intelligence-layout__visual--structural {
+  background: var(--structural-surface);
+  border-radius: 8px;
+  padding: var(--space-8) var(--space-4);
+  width: 100%;
+}
+/* The one Paper "clarity surface" moment on the homepage (docs/design-
+   system-hybrid-direction.md Section 1) — Ink text only, no Teal inside it,
+   since Teal fails contrast on Paper (~2.4:1) and the existing panel's
+   colors are tuned for a dark ground, not something to be recolored onto
+   white. Full-width block at editorial scale, sharp corners, no
+   text-transform/letter-spacing tightening — those are exactly what read as
+   a status chip/badge, which the anti-pattern list rules out. Set at h4
+   scale so it lands as the resolution beat of the fragmented → intelligence
+   → decision-ready sequence, not a caption stapled under the panel. Label
+   text is quoted verbatim from this section's own paragraph, not new copy. */
+.clarity-surface {
+  display: block;
+  background: var(--teal-wash);
+  border-left: 3px solid var(--site-accent);
+  border-radius: 4px;
+  padding: var(--space-3) var(--space-4);
+  margin-top: var(--space-4);
+  width: 100%;
+}
+.clarity-surface__label {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--pmology-color-ink);
+  margin: 0;
+}
+/* The one editorial-italic moment on the homepage. Applied to existing copy
+   in place (see index.html closing CTA) — no new sentence was written for
+   this; restraint means restyling what's already there, not adding a
+   second line that duplicates it. */
+.pull-quote {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--site-text-secondary);
+}
+.pull-quote::before { content: '\201C'; color: var(--site-link); }
+.pull-quote::after { content: '\201D'; color: var(--site-link); }
+
+/* Two-up supporting value pairs inside the Project Controls / Intelligence
+   Layer sections. Deliberately not .grid-3 (which is a 3-across, span-4
+   component reused elsewhere — see forbidden-to-modify list) — a plain span
+   override on .grid-3 via inline style would win at every breakpoint
+   including mobile, since inline styles ignore media queries, breaking the
+   stack-on-mobile behavior every other grid item on the site relies on. */
+.pair-col { grid-column: span 12; }
+@media (min-width: 768px) { .pair-col { grid-column: span 6; } }
+/* Subtle hierarchy for the pair items — a thin top rule plus a small
+   secondary numeral, the same "top-border + mark" idiom already used
+   elsewhere on the site (the retired theme-item, .process-item's numbering)
+   — not a card: no background, no border-box, no shadow, no padding-box. */
+.concept-pair { display: flex; gap: var(--space-2); align-items: flex-start; padding-top: var(--space-2); border-top: 1px solid var(--site-border); }
+/* IBM Plex Mono, per typography-system.md Section 3 — this is exactly the
+   "technical identifier/numeral" use case the brand system reserves it for.
+   Regular sitewide numerals still use Plex Sans; only these small marker
+   numerals switch, so Mono stays a deliberate, occasional texture rather
+   than a second general typeface. */
+.concept-pair__mark { font-family: var(--font-mono); color: var(--site-text-secondary); font-weight: 500; font-size: 0.875rem; letter-spacing: 0.02em; min-width: 1.75rem; padding-top: 0.15em; font-variant-numeric: tabular-nums; }
+.concept-pair h4 { margin-bottom: 0; }
+
+.intelligence-panel { width: 100%; max-width: 360px; height: auto; display: block; pointer-events: none; }
+.intelligence-panel__mark { fill: var(--pmology-color-blue); opacity: var(--op, 0.5); }
+.intelligence-panel__signal {
+  fill: var(--site-accent);
+  opacity: 1;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.intelligence-panel__decision-mark { fill: var(--site-accent); opacity: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Project Controls act: scattered → aligned, Teal signal last. */
+  .intelligence-panel--resolve .intelligence-panel__mark {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) rotate(var(--r));
+  }
+  .intelligence-panel--resolve.is-visible .intelligence-panel__mark {
+    animation: panel-mark-in 650ms var(--ease-entrance) forwards;
+  }
+  .intelligence-panel--resolve.is-visible .intelligence-panel__mark--1 { animation-delay: 0ms; }
+  .intelligence-panel--resolve.is-visible .intelligence-panel__mark--2 { animation-delay: 70ms; }
+  .intelligence-panel--resolve.is-visible .intelligence-panel__mark--3 { animation-delay: 140ms; }
+  .intelligence-panel--resolve.is-visible .intelligence-panel__mark--4 { animation-delay: 210ms; }
+  .intelligence-panel--resolve.is-visible .intelligence-panel__mark--5 { animation-delay: 280ms; }
+  .intelligence-panel--resolve.is-visible .intelligence-panel__mark--6 { animation-delay: 350ms; }
+  .intelligence-panel--resolve .intelligence-panel__signal {
+    opacity: 0;
+    transform: translate(44px, 0) scale(0.85);
+  }
+  .intelligence-panel--resolve.is-visible .intelligence-panel__signal {
+    animation: panel-signal-in 600ms var(--ease-entrance) 520ms forwards;
+  }
+
+  /* Intelligence Layer act: field + signal already at rest (visibility
+     already achieved is this section's starting state, not its animation);
+     the signal gets a brief, quiet confirm-pulse — the one place
+     --ease-activation's slight overshoot is used, distinguishing "the
+     intelligence layer doing something" from plain entrance — then several
+     short Teal marks fade in and travel outward from it (entrance curve
+     again, since they're new elements arriving) — insight producing
+     decisions, the reverse direction of Project Controls' inward
+     convergence. Marks stay (opacity settles at 1), they don't disappear —
+     the outcome persists. Never a glow/shadow (D-0004). */
+  .intelligence-panel--insight.is-visible .intelligence-panel__signal {
+    animation: panel-signal-emphasis 320ms var(--ease-activation) forwards;
+  }
+  .intelligence-panel--insight .intelligence-panel__decision-mark {
+    opacity: 0;
+    transform: translate(var(--dx), 0);
+  }
+  .intelligence-panel--insight.is-visible .intelligence-panel__decision-mark {
+    animation: panel-decision-in 480ms var(--ease-entrance) forwards;
+  }
+  .intelligence-panel--insight.is-visible .intelligence-panel__decision-mark--1 { animation-delay: 220ms; }
+  .intelligence-panel--insight.is-visible .intelligence-panel__decision-mark--2 { animation-delay: 380ms; }
+  .intelligence-panel--insight.is-visible .intelligence-panel__decision-mark--3 { animation-delay: 540ms; }
+}
+@keyframes panel-mark-in { to { opacity: var(--op); transform: none; } }
+@keyframes panel-signal-in { to { opacity: 1; transform: none; } }
+@keyframes panel-signal-emphasis { to { transform: scaleY(1.15); } }
+@keyframes panel-decision-in { to { opacity: 1; transform: none; } }
+
+/* Numbered process list (AI Adoption page — a genuine sequence, see page comment).
+   The connecting line is a plain vertical rule behind the step numbers, not a
+   node/timeline widget — "structure, hierarchy, and connection" per
+   brand-discovery.md, nothing more literal than that. */
+.process-list { counter-reset: step; display: flex; flex-direction: column; gap: var(--space-3); position: relative; }
+.process-list::before {
+  content: '';
+  position: absolute;
+  left: 3.25rem; /* centered in the gap after the 2.5rem number column, clear of the digits */
+  top: 0.6em;
+  bottom: 0.6em;
+  width: 2px;
+  background: var(--site-border);
+}
+.process-item { display: flex; gap: var(--space-3); align-items: baseline; position: relative; }
+/* IBM Plex Mono for the step numeral — same technical-identifier use case as
+   .concept-pair__mark above, applied consistently wherever a numeral marks
+   a step/sequence rather than running body copy. */
+.process-item::before {
+  counter-increment: step;
+  content: counter(step, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--site-text-secondary);
+  min-width: 2.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Horizontal 4-step process flow (Approach page). A plain connecting line
+   behind numbered badges — same "structure, not literal icon" principle as
+   .process-list's vertical line above, just laid out horizontally. Badge
+   fill uses Ink against the section's Slate background for contrast (same
+   Ink-on-Slate precedent as .structural-surface), Teal border ties it to
+   the accent hierarchy. No arrows, nodes, or gimmicky connectors. */
+.step-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); position: relative; }
+.step-flow::before {
+  content: '';
+  position: absolute;
+  top: 1.75rem;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  background: var(--site-border);
+}
+.step-flow__item { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-2); }
+.step-flow__badge {
+  width: 3.5rem; height: 3.5rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--site-bg);
+  border: 2px solid var(--site-accent);
+  font-family: var(--font-mono); font-weight: 600; font-size: 1.125rem;
+  color: var(--site-text);
+  position: relative; z-index: 1;
+}
+.step-flow__item h4 { margin-bottom: 0; }
+.step-flow__item p { margin: 0; }
+@media (max-width: 767px) {
+  .step-flow { grid-template-columns: 1fr; gap: var(--space-5); }
+  .step-flow::before { display: none; }
+}
+
+/* ---------- Footer ---------- */
+/* The footer stays DARK on the light-forward site — an Ink anchor that closes
+   the page and separates it from the browser chrome. Uses the untouched dark
+   kit (--dark-*). */
+.site-footer {
+  background: var(--dark-bg);
+  color: var(--dark-text);
+  padding-block: var(--space-8) var(--space-4);
+  border-top: 1px solid var(--dark-border);
+}
+.site-footer__grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--dark-border);
+}
+@media (min-width: 768px) { .site-footer__grid { grid-template-columns: 2fr 1fr 1fr; } }
+.site-footer h4 { color: var(--dark-text); margin-bottom: var(--space-2); }
+.site-footer a { color: var(--dark-text-2); transition: color 200ms var(--ease-interaction); }
+.site-footer a:hover { color: var(--site-accent); }
+.site-footer ul li + li { margin-top: var(--space-1); }
+.site-footer__brand { font-weight: 600; font-size: 1.125rem; color: var(--dark-text); margin-bottom: var(--space-1); }
+.site-footer__bottom {
+  display: flex; flex-wrap: wrap; gap: var(--space-2);
+  justify-content: space-between; align-items: center;
+  padding-top: var(--space-3); font-size: 0.8125rem; color: #8B96A8;
+}
+
+/* ---------- Forms ---------- */
+.form-field { display: flex; flex-direction: column; gap: var(--space-1); margin-bottom: var(--space-2); }
+.form-field label { font-size: 0.875rem; font-weight: 600; }
+.form-field input, .form-field textarea {
+  font: inherit;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--site-border);
+  border-radius: 6px;
+  background: #FFFFFF;
+  color: var(--site-text);
+}
+.form-field input::placeholder, .form-field textarea::placeholder { color: var(--site-text-meta); }
+.form-note {
+  background: var(--site-bg-alt);
+  border: 1px solid var(--site-border);
+  border-radius: 8px;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.875rem;
+  color: var(--site-text-secondary);
+}
+.form-success { display: none; }
+.form-success.is-visible { display: block; }
+
+/* ---------- WPForms (contact) ----------
+ * Restyle WPForms Lite to the PMOlogy light-forward system: white fields,
+ * Line borders, Ink text, Teal submit fill, Blue focus ring. Scoped to
+ * .pmology-form so nothing else is affected. */
+.pmology-form .wpforms-container {
+  --wpforms-field-border-radius: 6px;
+  --wpforms-field-background-color: #FFFFFF;
+  --wpforms-field-border-color: var(--site-border);
+  --wpforms-field-border-color-spare: var(--site-border);
+  --wpforms-field-text-color: var(--site-text);
+  --wpforms-field-menu-color: #FFFFFF;
+  --wpforms-label-color: var(--site-text);
+  --wpforms-label-sublabel-color: var(--site-text-secondary);
+  --wpforms-label-error-color: var(--color-danger);
+  --wpforms-button-border-radius: 6px;
+  --wpforms-button-background-color: var(--site-accent);
+  --wpforms-button-border-color: var(--site-accent);
+  --wpforms-button-text-color: var(--pmology-color-ink);
+  --wpforms-page-break-color: var(--site-accent);
+}
+.pmology-form .wpforms-field { padding: 0; margin-bottom: var(--space-2); }
+.pmology-form .wpforms-field-label,
+.pmology-form .wpforms-field legend {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--site-text);
+  margin-bottom: var(--space-1);
+  display: block;
+}
+.pmology-form .wpforms-required-label { color: var(--color-danger); }
+.pmology-form input[type="text"],
+.pmology-form input[type="email"],
+.pmology-form input[type="tel"],
+.pmology-form input[type="url"],
+.pmology-form textarea,
+.pmology-form select {
+  font: inherit;
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--site-border);
+  border-radius: 6px;
+  background: #FFFFFF;
+  color: var(--site-text);
+  box-shadow: none;
+}
+.pmology-form input::placeholder,
+.pmology-form textarea::placeholder { color: var(--site-text-meta); }
+.pmology-form input:focus,
+.pmology-form textarea:focus,
+.pmology-form select:focus {
+  outline: 2px solid var(--pmology-color-focus);
+  outline-offset: 2px;
+  border-color: var(--site-accent);
+}
+.pmology-form .wpforms-field-description,
+.pmology-form .wpforms-field-sublabel {
+  font-size: 0.8125rem;
+  color: var(--site-text-secondary);
+  margin-top: var(--space-1);
+}
+.pmology-form .wpforms-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: var(--site-accent);
+  color: var(--pmology-color-ink);
+  cursor: pointer;
+  transition: background-color 120ms var(--ease-interaction);
+}
+.pmology-form .wpforms-submit:hover { background: #3fcab9; }
+.pmology-form .wpforms-error {
+  color: var(--color-danger);
+  font-size: 0.8125rem;
+  margin-top: var(--space-1);
+}
+.pmology-form input.wpforms-error,
+.pmology-form textarea.wpforms-error { border-color: var(--color-danger); }
+.pmology-form .wpforms-confirmation-container-full {
+  background: var(--teal-wash);
+  border: 1px solid color-mix(in srgb, var(--site-accent) 18%, var(--site-border));
+  border-radius: 8px;
+  padding: var(--space-2) var(--space-3);
+  color: var(--site-text);
+}
+
+/* ---------- Legal pages (editor content) ---------- */
+.legal-body h2 { margin-top: var(--space-4); }
+.legal-body h3 { margin-top: var(--space-3); }
+.legal-body a { color: var(--site-link); }
+.legal-body strong { font-weight: 600; color: var(--site-text); }
+.legal-body ul { list-style: disc; padding-left: 1.25rem; }
+.legal-body li + li { margin-top: var(--space-1); }
+
+/* ---------- Utility ---------- */
+.text-secondary { color: var(--site-text-secondary); }
+.mt-2 { margin-top: var(--space-2); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+.skip-link {
+  position: absolute; left: -999px; top: 0; z-index: 100;
+  background: var(--site-accent); color: var(--pmology-color-ink);
+  padding: var(--space-1) var(--space-2);
+}
+.skip-link:focus { left: var(--space-2); top: var(--space-2); }
+
+/* Placeholder banner — deliberately kept light/bright: it's a utility notice, not
+   part of the site's aesthetic, and stands out more against the dark site than it
+   would have against the old light one. */
+.prototype-banner {
+  background: #FFF7E6;
+  border-bottom: 1px solid #F0D98C;
+  color: var(--pmology-color-ink);
+  font-size: 0.8125rem;
+  text-align: center;
+  padding: var(--space-1) var(--space-2);
+}
+
+/* ---------- Scroll-reveal ---------- */
+/*
+ * The hidden state only exists once JS confirms it can both check motion
+ * preference and observe scroll position (html.js-reveal-ready, set in main.js).
+ * Consequences of that gating:
+ *   - JS disabled/blocked → elements are never hidden. Content is simply there.
+ *   - prefers-reduced-motion: reduce → main.js never adds the ready class.
+ *     Content is simply there.
+ *   - Normal case → elements fade/rise in as they cross into view, once each,
+ *     via IntersectionObserver.
+ * Applied to section headings, card groups, and CTA blocks — not the hero
+ * (which has its own load-time entrance via the layers signature) and not
+ * every individual line of body text, to keep this a quiet supporting effect
+ * rather than the site's second competing signature.
+ */
+html.js-reveal-ready .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms var(--ease-entrance),
+              transform 600ms var(--ease-entrance);
+}
+html.js-reveal-ready .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+html.js-reveal-ready .reveal--d1 { transition-delay: 90ms; }
+html.js-reveal-ready .reveal--d2 { transition-delay: 180ms; }
+html.js-reveal-ready .reveal--d3 { transition-delay: 270ms; }
+html.js-reveal-ready .reveal--d4 { transition-delay: 360ms; }
+html.js-reveal-ready .reveal--d5 { transition-delay: 450ms; }
+html.js-reveal-ready .reveal--d6 { transition-delay: 540ms; }
+html.js-reveal-ready .reveal--d7 { transition-delay: 630ms; }
+html.js-reveal-ready .reveal--d8 { transition-delay: 720ms; }
+
+/* =================================================================
+   LANDING — rounded-box system (front-page.php only)
+   Cool-white page, content in rounded boxes. Structure after bcg.com,
+   colour kept as PMOlogy's own. See docs/palette-light-extension.md.
+   ================================================================= */
+
+/* One column width for the whole page — every section box lines up with the
+   hero box (BCG-style), a small even gutter from the viewport edge. Sections
+   that are not themselves a .box get inner padding equal to .box's so their
+   text still aligns with the boxed sections' text. */
+.pm-page {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 7vw, 72px);
+  /* Bottom pad keeps a strip of Paper between the dark closing-CTA box and the
+     dark footer, so the rounded box does not collide with the footer edge. */
+  padding-block: var(--space-6) clamp(48px, 8vw, 88px);
+}
+.pm-inner {
+  margin-inline: clamp(12px, 3vw, 36px);
+  padding-inline: 0;
+}
+.pm-inner > section:not(.box):not(.pm-dual) {
+  padding-inline: clamp(24px, 4vw, 52px);
+}
+/* the wide boxes: small even gutter, not literally edge-to-edge */
+.pm-page > .box {
+  margin-inline: clamp(12px, 3vw, 36px);
+}
+
+/* shared box */
+.box {
+  border-radius: 22px;
+  padding: clamp(24px, 4vw, 52px);
+}
+.box--card { background: #FFFFFF; border: 1px solid var(--site-border); }
+.box--tint { background: var(--site-bg-alt); }
+.box--wash-blue {
+  background: var(--blue-wash);
+  border: 1px solid color-mix(in srgb, var(--site-link) 12%, var(--site-border));
+  border-top: 3px solid var(--site-link);
+}
+.box--wash-teal {
+  background: var(--teal-wash);
+  border: 1px solid color-mix(in srgb, var(--site-accent) 18%, var(--site-border));
+  border-top: 3px solid var(--site-accent);
+}
+.box--dark { background: var(--dark-bg); color: var(--dark-text); }
+.box--dark h2, .box--dark h3 { color: var(--dark-text); }
+.box--dark .eyebrow { color: var(--dark-text-2); }
+
+/* Section 3 "Responsible AI" — framed on the brand's dark trust surface
+   (storyboard guardrail: "a plain Slate/Ink surface"). Flat Ink fill from
+   .box--dark, plus one restrained Teal top-rule reusing the .box--wash-*
+   idiom; no gradient, glow, image, or motion (D-0004). Body text and the
+   principle hairline switch to the dark-kit neutrals so they stay legible on
+   Ink. Owner-approved 2026-09-07; live since theme 1.4.8 — see
+   landing-page-storyboard.md, "Amendment — 2026-09-07 (Responsible AI
+   framing)". */
+.box--responsible {
+  border: 1px solid var(--dark-border);
+  border-top: 3px solid var(--site-accent);
+}
+.box--responsible .text-secondary { color: var(--dark-text-2); }
+.box--responsible .principle-rule { background: var(--dark-border); }
+
+/* ---- 1. hero box ---- */
+.pm-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: min(72vh, 620px);
+  display: flex;
+  align-items: flex-end;
+  isolation: isolate;
+  padding: 0;
+  background: var(--dark-bg);
+}
+.pm-hero__media { position: absolute; inset: 0; z-index: 0; }
+.pm-hero__media svg { width: 100%; height: 100%; display: block; }
+/* The source clip carries ~12% letterbox bars top and bottom; the element is
+   oversized 15% past the media box on each edge so those bars fall outside
+   .pm-hero's overflow:hidden and never show. object-fit:cover still fills. */
+.pm-hero__video {
+  position: absolute; left: 0; top: -15%;
+  width: 100%; height: 130%;
+  object-fit: cover;
+  display: block;
+}
+/* Small screens: drop the video (bandwidth), let the poster carry the still. */
+@media (max-width: 700px) {
+  .pm-hero__video { display: none; }
+  .pm-hero__media {
+    background: var(--dark-bg) url(../video/hero-flow-poster.jpg) center / cover no-repeat;
+  }
+}
+/* Reduced motion: no autoplaying loop — freeze on the poster frame. */
+@media (prefers-reduced-motion: reduce) {
+  .pm-hero__video { display: none; }
+  .pm-hero__media {
+    background: var(--dark-bg) url(../video/hero-flow-poster.jpg) center / cover no-repeat;
+  }
+}
+.pm-slats { animation: pm-slats-in 1100ms var(--ease-entrance) both; transform-origin: 72% 50%; }
+.pm-slats-drift { animation: pm-drift 20s ease-in-out infinite alternate; }
+@keyframes pm-slats-in { from { opacity: 0; transform: translateX(64px); } to { opacity: 1; transform: none; } }
+@keyframes pm-drift { from { transform: translateX(-14px); } to { transform: translateX(14px); } }
+
+.pm-hero__scrim {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(104deg, var(--dark-bg) 18%, rgba(15,23,42,0.80) 44%, rgba(15,23,42,0.20) 74%, rgba(15,23,42,0.04) 100%),
+    linear-gradient(to top, rgba(15,23,42,0.82) 0%, rgba(15,23,42,0.28) 34%, transparent 58%);
+}
+/* No panel: the copy sits directly on the footage, anchored bottom-left, with
+   the scrim's lower pool carrying contrast. */
+.pm-hero__panel {
+  position: relative; z-index: 2;
+  margin: clamp(24px, 4vw, 52px);
+  max-width: 40rem;
+  color: var(--dark-text);
+}
+.pm-hero__panel .eyebrow { color: var(--dark-text-2); margin-bottom: var(--space-2); }
+/* hero headline sits on the brand H1 scale (2.5rem), nudged fluid so it
+   holds to two lines inside the 38rem panel; 700 is the brand's one
+   "maximum weight" moment. */
+.pm-hero__panel h1 {
+  font-size: clamp(1.75rem, 1.2rem + 1.9vw, 2.5rem);
+  line-height: 1.12; letter-spacing: -0.02em; font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+.pm-hero__panel .body-lg { color: var(--dark-text-2); margin-bottom: var(--space-3); }
+.pm-hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.pm-hero .btn--secondary { color: var(--dark-text); border-color: var(--dark-text-2); }
+.pm-hero .btn--secondary:hover { background: var(--dark-text); color: var(--dark-bg); }
+
+/* ---- 2. approach ribbon ----
+   Three tabs framing PMOlogy's approach: the Intelligence Layer idea, the
+   Project Controls foundation, the Responsible-AI overlay. Not a nav TOC —
+   each jumps to its section (Project Controls -> the Delivery-data stage
+   inside the #layer box). */
+.pm-layer {
+  display: flex; flex-wrap: wrap; gap: 2px; justify-content: center;
+  width: fit-content; max-width: 100%;
+  margin-inline: auto;
+  padding: 6px;
+  background: #FFFFFF; border: 1px solid var(--site-border); border-radius: 999px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+.pm-layer a {
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--site-link); text-decoration: none;
+  padding: 8px 16px; border-radius: 999px; white-space: nowrap;
+  transition: background-color 150ms var(--ease-interaction);
+}
+/* Only reaction is the grey ground on hover/focus — the label stays Tech Blue
+   in every state. No persistent "current" marker. */
+.pm-layer a:hover,
+.pm-layer a:focus-visible { background: var(--site-bg-alt); }
+
+/* Homepage Intelligence Layer box — the three stages as one unit inside the
+   wash-teal box, reading Delivery -> Connected -> Intelligent. Each stage is
+   divided by a hairline in the box's own accent tint; the mono step label is
+   the one Tech-Blue accent. Each small flat-rect figure carries the same
+   Blue = existing data / one Teal bar = the layer added story (D-0004:
+   flat rects only, no glow/gradient/connectors). */
+.layer-stages {
+  display: grid; gap: var(--space-4);
+  grid-template-columns: 1fr;
+  margin-top: var(--space-3);
+}
+@media (min-width: 768px) {
+  .layer-stages { grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 3vw, 40px); }
+}
+.layer-stage {
+  padding-top: var(--space-3);
+  border-top: 2px solid color-mix(in srgb, var(--site-accent) 40%, var(--site-border));
+}
+.layer-stage__step {
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--site-link);
+}
+.svc-figure { margin-bottom: var(--space-3); }
+.layer-stage .svc-figure { margin-bottom: var(--space-2); }
+.svc-figure svg { display: block; width: 100%; max-width: 180px; height: auto; }
+/* Section 2 service icons — three distinct line icons (adjustment sliders /
+   branches joining one connection / microchip with a checkmark) replacing the
+   earlier flat-bar figures. ~44px, Navy (#003DA5) outline with one restrained
+   Teal (#14B8A6) accent per icon; no gradient, glow, background box, or
+   animation (D-0004). Left-aligned above the heading, equal visual weight.
+   This is an owner override, scoped to this section, of the storyboard's
+   "flat geometric bars only / no connecting-line visuals" lock — see
+   docs/landing-page-storyboard.md, "Amendment — 2026-09-07 (Section 2 icons)".
+   Live since theme 1.4.8 (2026-09-07). */
+.svc-figure--icon { margin-bottom: var(--space-3); }
+.layer-stage .svc-figure--icon { margin-bottom: var(--space-3); }
+.svc-figure--icon svg { width: 44px; max-width: 44px; height: 44px; }
+
+/* ---- 3. feature card (split) ---- */
+.pm-split { display: grid; gap: clamp(24px, 4vw, 48px); grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 900px) { .pm-split { grid-template-columns: 1.05fr 0.95fr; } }
+.pm-mini {
+  background: #FFFFFF; border: 1px solid var(--site-border);
+  border-radius: 14px; padding: clamp(24px, 4vw, 40px);
+  aspect-ratio: 4 / 3; display: grid; place-items: center;
+}
+.pm-mini svg { width: 100%; height: 100%; }
+
+/* ---- 4. band grid (inside a wash box) ---- */
+.pm-band__grid { display: grid; gap: clamp(16px, 3vw, 40px); grid-template-columns: 1fr; }
+@media (min-width: 820px) { .pm-band__grid { grid-template-columns: 1.1fr 0.9fr; align-items: end; } }
+
+/* ---- 5. principles row (reuses .grid-3) — no extra CSS ---- */
+
+/* ---- 6. portfolio carousel ---- */
+.pm-carousel-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-3); }
+.pm-rail {
+  display: grid; grid-auto-flow: column;
+  grid-auto-columns: minmax(260px, 78vw);
+  gap: var(--space-2);
+  overflow-x: auto; padding-bottom: var(--space-1);
+  scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+}
+@media (min-width: 720px) { .pm-rail { grid-auto-columns: minmax(300px, 360px); } }
+.pm-rail::-webkit-scrollbar { height: 8px; }
+.pm-rail::-webkit-scrollbar-thumb { background: var(--site-border); border-radius: 999px; }
+.pm-rcard {
+  scroll-snap-align: start;
+  background: #FFFFFF; border: 1px solid var(--site-border); border-radius: 16px;
+  overflow: hidden; display: flex; flex-direction: column;
+}
+.pm-rcard__img { aspect-ratio: 16 / 10; background: var(--site-bg-alt); display: grid; place-items: center; border-bottom: 1px solid var(--site-border); }
+.pm-rcard__img svg { width: 72%; height: 72%; }
+.pm-rcard__body { padding: var(--space-2); display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.pm-rcard h3 { font-size: 1rem; }
+.pm-rcard .link-arrow { margin-top: auto; font-size: 0.875rem; }
+
+/* ---- 7. dual module ---- */
+.pm-dual { display: grid; gap: clamp(20px, 3vw, 32px); grid-template-columns: 1fr; }
+@media (min-width: 820px) { .pm-dual { grid-template-columns: 1fr 1fr; } }
+.pm-dual .box { display: flex; flex-direction: column; gap: var(--space-2); height: 100%; }
+.pm-dual .link-arrow { margin-top: auto; }
+.pm-steps { display: flex; flex-wrap: wrap; gap: 8px; }
+.pm-step {
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em;
+  padding: 6px 10px; border-radius: 999px; background: #FFFFFF; border: 1px solid var(--site-border);
+  color: var(--site-text-secondary);
+}
+
+/* ---- 8. category pill ---- */
+.pm-pill {
+  display: inline-block;
+  font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.14em;
+  text-transform: uppercase; padding: 5px 10px; border-radius: 999px;
+  background: var(--site-bg-alt); color: var(--site-text-secondary);
+}
+
+/* ---- 9. closing CTA (dark box) ---- */
+.pm-close { position: relative; overflow: hidden; isolation: isolate; }
+.pm-close__media { position: absolute; inset: 0; z-index: 0; opacity: 0.5; }
+.pm-close__media svg { width: 100%; height: 100%; }
+.pm-close__in { position: relative; z-index: 1; max-width: 46rem; }
+.pm-close .pull-quote { color: var(--dark-text-2); }
+.pm-close .pull-quote::before, .pm-close .pull-quote::after { color: var(--site-accent); }
+.pm-close .pm-hero__ctas, .pm-close .hero__ctas { margin-top: var(--space-3); }
+.pm-close .btn--secondary { color: var(--dark-text); border-color: var(--dark-text-2); }
+.pm-close .btn--secondary:hover { background: var(--dark-text); color: var(--dark-bg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pm-slats, .pm-slats-drift { animation: none !important; }
+}
+
+.pm-dual h2 { font-size: clamp(1.35rem, 1.05rem + 1.3vw, 1.75rem); line-height: 1.2; }
+.pm-carousel-head h2 { margin-top: var(--space-1); }

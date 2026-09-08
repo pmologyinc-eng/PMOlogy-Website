@@ -9,7 +9,9 @@
 ## 1. Hero Section
 
 **Headline/message**
-Retain the existing positioning-derived line — *"A smarter intelligence layer for project delivery."* — with the existing eyebrow ("Visibility · Intelligence · Delivery") above it and the existing supporting sentence below. No new copy invented; this is a refinement of what's already approved and on-brand, not a rewrite.
+Positioning-derived line: *"A layer of intelligence for project delivery."*, with the existing eyebrow ("Visibility · Intelligence · Delivery") above it and an outcome-led supporting sentence below (data connected, manual work reduced, better-informed decisions, built on existing tools). Kept close to the approved positioning language.
+
+> Updated 2026-09-07: hero copy reworded (headline and supporting paragraph); see `writing-guidelines.md`. The visual/animation notes below still describe the earlier SVG-plate hero and are stale relative to the shipped video hero.
 
 **Visual composition**
 The layered plates remain the entire visual language of the hero — four muted Blue plates (existing systems) stacked beneath one Teal plate (the added intelligence layer), offset further out and thicker than the rest. Scaled up from its current corner-accent treatment to a more spatially dominant presence — still not full-bleed or literal, but large enough that it reads as the room the headline stands in, not a decoration beside it. Headline and supporting copy stay left-aligned in the current `hero__content` column; plates occupy the right/negative space, exactly as today — the change is scale and confidence, not composition.
@@ -111,6 +113,16 @@ One idea, two framings, zero redundant engineering — consistent with the "spen
 
 ## 4. Responsible AI Section
 
+> **Copy revised 2026-09-07.** Approved wording is in `homepage-copy.md`
+> (Section 3): eyebrow "Responsible AI", heading "Practical AI, tailored to your
+> processes.", two introductory paragraphs, then three principle columns
+> (Transparency, Accountability, Human oversight) with revised descriptions. It
+> supersedes "Applied thoughtfully, governed carefully." and the old principle
+> text. The section now frames AI across the client's core delivery and
+> supporting business processes. Layout intent: text-led, heading and intro
+> above three equal columns that stack on mobile, no image and no animation.
+> The visual-restraint guardrails below still stand.
+
 **Recommended static/interaction approach**
 Deliberately the quietest section on the page — no scroll-triggered motion, no resolving animation, no new visual system introduced. Content presented in the site's existing typographic pattern (eyebrow + heading + body, as already used across interior pages), on a plain Slate/Ink surface with no plate or bar imagery at all.
 
@@ -130,7 +142,7 @@ The one interaction permitted: a small, optional hover/focus-reveal on a short s
 | 2 | Project Controls | Understanding + Trust | Closes the credibility gap first — expertise before technology |
 | 3 | Intelligence Layer | Understanding + Differentiation | Once controls credibility is established, introduce what makes PMOlogy different |
 | 4 | Responsible AI | Trust | Addresses the audience's stated risk concerns right before the existing CTA close |
-| — | *(existing)* CTA | Action | Unchanged — "Contact Us" / "About PMOlogy" |
+| — | Closing invitation | Action | Revised and approved 2026-09-07: heading "Where could your processes work better?", one button "Let's talk" to /contact/, secondary "About PMOlogy" button removed. See `homepage-copy.md` Section 5. |
 
 This ordering deliberately puts expertise *before* AI differentiation — the opposite of how the current site's information architecture reads today (AI Adoption is currently the most fully-built service page; PMO Consulting the thinnest) — correcting the imbalance flagged in the brand-alignment review while keeping the existing hero and CTA structure untouched.
 
@@ -153,3 +165,276 @@ Carried forward from the prior critique, so implementation doesn't quietly reint
 - **No multiple simultaneous charts** ("sparkline soup") — one panel, one three-stage idea, not a grid of mini-visualizations.
 - **No hover states, tooltips, or interactive affordances** on the panel in either section — fully decorative, `aria-hidden="true"`, never inviting the click-to-explore behavior of a real product.
 - **No live/looping "real-time" behavior** — both the Section 2 resolution and the Section 3 absorption act run once per scroll-entry, never cycling or auto-updating.
+
+---
+
+## Amendment — 2026-09-07 (service model + sequence)
+
+Supersedes the "Section Sequence Rationale" table above for section **order**;
+the per-section design guardrails (visual grammar, no-particle / no-glow / no-RAG,
+one shared panel component, reduced-motion behavior) all still stand.
+
+**Service model changed from two services to three** — see
+`docs/service-architecture.md`. The homepage now leads, after the hero, with
+**"The Intelligence Layer" as a value statement / mindset section** (not a product
+demo), followed by the three services as concrete pillars in narrative order:
+
+1. Hero — unchanged.
+2. **The Intelligence Layer** — the positioning: domain knowledge + AI adds a
+   thin, additive layer on existing systems; small targeted changes, no
+   rip-and-replace, no large cost. This is the old "Intelligence Layer section"
+   promoted to lead and reframed as philosophy rather than mechanism.
+3. **Project Controls** (service 1) — the foundation; still carries the "we know
+   this domain at a working level" credibility the original storyboard put first.
+4. **Project Data Integration** (service 2) — connect fragmented existing project
+   data into one flow; reporting/dashboarding + data-collection automation live
+   here now.
+5. **AI Adoption in Project Delivery** (service 3) — AI/analytics applied on top.
+6. Responsible AI — copy revised and approved 2026-09-07 (see follow-up below);
+   still the quietest section in treatment.
+7. Closing invitation — copy revised and approved 2026-09-07: single "Let's talk"
+   button to /contact/, "About PMOlogy" button removed, quiet background. See
+   `homepage-copy.md` Section 5.
+
+> **Superseded in part by the 2026-09-07 positioning-clarification follow-up
+> below.** Items 2 to 5 above ("The Intelligence Layer" as a value section, then
+> the services as a single pillar block in narrative order) are now the two
+> distinct sections "Our approach" and "Our expertise"; service 2 is named
+> "Data Integration" with a broader scope. Kept above as history.
+
+The original rationale ("expertise before AI differentiation") is preserved:
+Project Controls is still the first *pillar*, immediately under the value
+statement. What moved is that the value statement itself now opens the page.
+
+The shared **Project Intelligence Visualization** panel still applies to Project
+Controls and to the Intelligence Layer / Project Data Integration material —
+one component, reused at different stages, exactly as locked 2026-08-06.
+
+### Follow-up — 2026-09-07 (positioning clarification)
+
+Owner-approved clarification, recorded in full in `service-architecture.md`.
+Affects wording only; the visual grammar and animation guardrails still stand.
+
+- **Two sections, not one block** (approved 2026-09-07, supersedes item 4 of
+  the Amendment above). The post-hero introduction and the service columns are
+  now visually distinct sections:
+  - **Section 1 "Our approach"** — a spacious, text-led, boxed section with only
+    the introduction: eyebrow "Our approach", heading "More value from the tools
+    and processes you already use", two paragraphs. Frames how PMOlogy works
+    (understand the client's delivery processes, tools, information and people;
+    identify with the team where work slows, information disconnects, or
+    visibility is missing; then prioritize improvements by likely value, effort,
+    and team need, across project controls, data integration, and AI).
+  - **Section 2 "Our expertise"** — heading "Three connected areas of
+    expertise", then three **equal-width columns** (equal visual weight, stacked
+    on mobile) placed **outside** the Section 1 box. Each column: title,
+    description, service link. Whitespace or a subtle divider between columns,
+    minimal decoration. No larger standalone box for Project Controls; no
+    arrows, step numbers, or sequence cues.
+  - Approved copy and link destinations for both sections are recorded verbatim
+    in `homepage-copy.md`.
+  - The earlier draft intro that spelled out "approach not a product" and "not
+    sequential stages" on the page is superseded; those remain internal
+    decisions below and in `service-architecture.md`.
+- **Service 2 renamed** to **"Data Integration"** (was "Project Data
+  Integration"), scope broadened to business and delivery data across existing
+  systems plus the data architecture behind operations. See
+  `service-architecture.md` ("Rename and scope: Data Integration"). The detail
+  URL `/services/project-data-integration/` is retained pending a separate
+  migration decision.
+- "A layer of intelligence" is the overall promise only. Never a fourth
+  service, a product, or a synonym for Data Integration.
+- Homepage Sections 1 to 5 are **implemented and live** on pmology.ca as of
+  2026-09-07 (theme `1.4.0`), owner-authorized. Verbatim copy in
+  `homepage-copy.md`. Portfolio strip and footer tagline were out of scope and
+  are unchanged; the `/services/` pages remain a separate review.
+- The three services are distinct and complementary, each with standalone value.
+  Project Controls is not merely data-prep for the others; AI Adoption is not a
+  required destination. The "fragmented → connected → intelligent" panel is a
+  visual metaphor, not a client journey or a required sequence.
+- Conventional project-controls forecasting is standard controls work; only
+  AI-assisted forecasting belongs under AI Adoption, as an option.
+- **Responsible AI section (approved 2026-09-07).** New heading "Practical AI,
+  tailored to your processes.", revised intro and three principle descriptions,
+  all recorded verbatim in `homepage-copy.md` (Section 3). Supersedes "Applied
+  thoughtfully, governed carefully." The section frames AI across the client's
+  core delivery and supporting business processes; it does not rename or
+  re-scope the AI Adoption service. Text-led, no image or animation; three
+  equal columns that stack on mobile. See Section 4 above.
+- **About PMOlogy and How we work boxes (approved 2026-09-07).** Two adjacent
+  boxes, equal weight on desktop, stacked on mobile with About first. "How we
+  work" is the former "Approach" box, re-eyebrowed; four stage titles preserved;
+  "with low cost and minimal disruption" is owner-approved positioning scoped to
+  that box. Verbatim copy in `homepage-copy.md` (Section 4).
+- **Closing invitation (approved 2026-09-07).** Heading "Where could your
+  processes work better?", one description line, a single button "Let's talk" to
+  /contact/. Supersedes "Let's talk about where an intelligence layer fits.",
+  its pull-quote, and the two-button layout; the "About PMOlogy" button is
+  removed. Quiet background. Verbatim copy in `homepage-copy.md` (Section 5).
+
+---
+
+## Amendment — 2026-09-07 (site footer)
+
+Owner-approved, **not yet implemented** — the live footer is unchanged until a
+separate footer implementation request. Verbatim link text, destinations, and
+the logo / tagline decision are in `homepage-copy.md` Section 6; this entry
+holds the layout and alignment intent.
+
+**Structure (unchanged in kind).** A dark (Ink) full-width anchor band closing
+every page: a brand + tagline block, then two link columns ("Explore",
+"Connect"), then a bottom row (Privacy Policy, Terms, automatic-year copyright).
+Three balanced columns on desktop, single-column stack on mobile.
+
+**Brand mark.** The plain-text "PMOlogy" is replaced by the approved reversed /
+Paper-text logo (`assets/svg/logo-reversed.svg`), linked to the homepage,
+proportions locked (height constrained, width auto), accessible name "PMOlogy".
+The tagline becomes the approved hero line, "A layer of intelligence for project
+delivery."
+
+**Alignment correction (the reason this is a layout amendment).**
+
+The footer wraps its content in `.container` — `max-width: 1280px`,
+`margin-inline: auto`, `padding-inline: var(--space-3)` (24px). The homepage
+rounded-box system does not use `.container`; every section box and boxless
+section is positioned by:
+
+- **outer boundary:** `margin-inline: clamp(12px, 3vw, 36px)`
+  (`.pm-page > .box`, `.pm-inner`), with no `max-width` cap — the boxes are
+  fluid, a small even gutter in from the viewport edge;
+- **inner padding:** `clamp(24px, 4vw, 52px)` (`.box` padding, and
+  `.pm-inner > section:not(.box):not(.pm-dual)` `padding-inline`).
+
+So on wide viewports the footer content is capped at 1280px and centred while
+the section boxes run much wider, and the footer's fixed 24px inner pad does not
+match the boxes' fluid inner pad — the footer text column and the section-box
+text column do not line up.
+
+**Approved fix.**
+
+1. Replace the footer's `.container` wrapper with a wrapper whose outer edges use
+   `margin-inline: clamp(12px, 3vw, 36px)` and **no** `max-width`, so the footer
+   content's left and right edges fall on the same vertical lines as the
+   section-box outer edges.
+2. Give the footer columns grid and the bottom row the section-box inner
+   padding, `padding-inline: clamp(24px, 4vw, 52px)` — applying it once on the
+   new wrapper covers both rows — so the footer columns and the bottom row align
+   with boxed-section text.
+3. Keep `.site-footer`'s dark background **full-width**; only the inner wrapper
+   takes the gutter.
+4. Reuse the two existing `clamp()` values verbatim — they are the site's
+   established tokens for this system, and they already scale across desktop,
+   tablet, and mobile, so alignment holds at every width with no new
+   breakpoints.
+5. Keep the existing responsive column behaviour: three balanced columns
+   (`.site-footer__grid` `grid-template-columns: 2fr 1fr 1fr`) at >=768px,
+   single-column stack below.
+
+**Implementation touches both menu sources.** The WordPress `footer` and
+`connect` menu locations **and** the hard-coded fallback `<ul>`s in `footer.php`
+must be updated together so they cannot drift. Portfolio stays removed from both
+(theme `1.4.7`).
+
+---
+
+## Amendment — 2026-09-07 (Section 2 icons)
+
+Owner-approved (via a preview review), **prepared locally, not yet published**.
+Replaces the three flat-bar `.svc-figure` illustrations in Section 2 "Three
+connected areas of expertise" (`front-page.php`, `#expertise`) with three
+distinct line icons.
+
+**Scoped override.** This section's earlier figures were built to the storyboard
+lock "No new ... shape language beyond ... flat geometric bars" and "No
+particle/node/connecting-line visuals anywhere" (see "What this storyboard
+deliberately excludes"), and to D-0004. The owner has approved an **override
+scoped to Section 2 only**: line icons are allowed here, and the Data
+Integration icon may use short connecting segments. D-0004 itself is
+**unchanged** and still honoured — the icons are flat, with no gradient, glow,
+bloom, blur, background box, or animation. Everywhere else on the page the
+"flat bars only / no connecting lines" lock still stands; do not generalise this
+to the hero, the shared Project Intelligence Visualization panel, or any other
+section.
+
+**The three icons** (inline SVG in `front-page.php`, `viewBox="0 0 48 48"`,
+rendered at 44px):
+
+- **Project Controls** — three horizontal adjustment sliders (three tracks, a
+  knob on each), the middle knob the Teal accent.
+- **Data Integration** — three branches on the left joining a single central
+  connection node on the right; the node is the Teal accent.
+- **AI Adoption in Project Delivery** — a microchip (body plus edge pins) with a
+  small Teal checkmark inside.
+
+**Shared style.** Navy (`#003DA5`) outline, `stroke-width` 2.5, round caps; one
+restrained Teal (`#14B8A6`) accent element per icon; no fills other than the
+Paper knob centres and the Teal accent. Equal visual weight, left-aligned
+directly above each `<h3>`, sitting under the existing Teal top-rule. Decorative
+only: `aria-hidden="true"` on both the `.svc-figure` wrapper and the `<svg>`,
+since each heading already names the service.
+
+**CSS.** New `.svc-figure--icon` modifier in `styles.css` next to `.svc-figure`
+— constrains the icon to 44px and sets the spacing below it to `--space-3`.
+Nothing else in the section changes: copy, links, column widths
+(`.layer-stages` `repeat(3, 1fr)` at >=768px, single column below), and
+responsive behaviour are all preserved; only the icon's own spacing was
+touched.
+
+**Existing icon library.** `assets/svg/service-icon-*.svg` were not reused —
+they are bar-based and do not match the slider / branch / microchip set. New
+lightweight inline SVGs were authored instead, at matching proportions and
+stroke weight.
+
+**Live since theme `1.4.8` (2026-09-07).** Deployed to pmology.ca via the
+Novamira filesystem abilities; the branch `hero-video-background` copy is the
+source of truth. `front-page.php` inline SVG + `.svc-figure--icon` in
+`styles.css`.
+
+---
+
+## Amendment — 2026-09-07 (Responsible AI framing)
+
+Owner-approved (via a preview review), **prepared locally, not yet published**.
+
+**Problem.** On the rounded-box page, Section 2 ("Three connected areas of
+expertise") and Section 3 ("Responsible AI") both sat in bare `.pm-inner`
+wrappers with no background, border, or corner radius. Between the boxed
+sections above and below, they read as loose paragraphs rather than framed
+sections.
+
+**Decision.**
+
+- **Section 2 stays unboxed** — owner decision, unchanged. It remains the
+  lighter breather between the "Our approach" box and the Responsible AI box.
+- **Section 3 "Responsible AI" is now framed** as a rounded box on the brand's
+  **dark Ink trust surface** (`.box.box--dark.box--responsible` in
+  `front-page.php`; `.box--responsible` block in `styles.css`). This is
+  consistent with — not a departure from — this storyboard's own Responsible AI
+  guardrail in Section 4 above ("a plain Slate/Ink surface with no plate or bar
+  imagery at all"). It reads as a considered governance / trust statement, which
+  is the section's stated job ("let the absence of spectacle be the message").
+
+**Treatment (all within existing tokens, no new language).**
+
+- Flat Ink fill from `.box--dark`. No gradient, glow, bloom, blur, image, or
+  motion — D-0004 stands.
+- One restrained Teal top-rule (`border-top: 3px solid var(--site-accent)`) —
+  the same 3px accent idiom `.box--wash-blue` / `.box--wash-teal` already use —
+  plus a `--dark-border` hairline on the other three sides.
+- Body copy (`.text-secondary`) and the `.principle-rule` hairline switch to the
+  dark-kit neutrals (`--dark-text-2`, `--dark-border`) so they stay legible on
+  Ink. Headings, eyebrows, and the three principle columns are already handled
+  by `.box--dark`.
+- Outer edges align with every other box: the box sits in `.pm-inner`, whose
+  `margin-inline` gutter equals `.pm-page > .box`'s. Three equal columns on
+  desktop, stacked on mobile — unchanged.
+- The old inline `style="padding-block: var(--space-2)"` is dropped; the section
+  now takes the standard `.box` padding.
+
+**Copy unchanged.** All Section 3 wording in `homepage-copy.md` is untouched.
+
+**Live since theme `1.4.8` (2026-09-07).** Deployed to pmology.ca via the
+Novamira filesystem abilities; the branch `hero-video-background` copy is the
+source of truth. `front-page.php` section classes + `.box--responsible` in
+`styles.css`. Local rhythm reference kept at
+`scratchpad/expertise-preview/rhythm.html` (Sections 1 to 4 together).

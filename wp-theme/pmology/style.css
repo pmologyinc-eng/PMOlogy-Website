@@ -1,0 +1,18 @@
+/*
+Theme Name: PMOlogy
+Theme URI: https://pmology.ca
+Description: PMOlogy marketing site — light-forward child theme of Blocksy. Layout, typography, and colour follow the PMOlogy brand system (see assets/css/styles.css header). Content lives in WordPress Pages and the Media Library; structure and styling live here.
+Author: PMOlogy
+Version: 1.4.8
+Template: blocksy
+Requires at least: 6.0
+Requires PHP: 8.0
+Text Domain: pmology
+*/
+
+/*
+ * This file intentionally contains only the theme header.
+ * The real stylesheet is assets/css/styles.css, enqueued from functions.php.
+ * The Blocksy parent stylesheet is deliberately NOT enqueued — the PMOlogy
+ * templates are self-contained and ship their own reset.
+ */
