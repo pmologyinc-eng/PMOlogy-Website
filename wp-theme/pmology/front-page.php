@@ -149,16 +149,32 @@ $ai_url        = home_url( '/services/ai-adoption-project-delivery/' );
 	</div>
 
 	<div class="pm-inner">
-		<?php // Section 3 — "Responsible AI". Text-led, no image or animation.
-			// Framed on the brand's dark trust surface (storyboard guardrail:
-			// "a plain Slate/Ink surface"). See docs/homepage-copy.md Section 3
-			// and landing-page-storyboard.md, "Amendment — 2026-09-07
-			// (Responsible AI framing)". ?>
+		<?php // Section 3 — "Responsible AI". Framed on the brand's dark trust
+			// surface. A quiet ambient loop sits in a panel beside the intro on
+			// desktop (>=900px), matching the Section 1 "Our approach" pattern;
+			// decorative, muted, hidden under reduced motion and below 900px.
+			// This panel is an owner override of the storyboard's "quietest
+			// section, no image or animation" guardrail. See docs/homepage-copy.md
+			// Section 3 and landing-page-storyboard.md, "Amendment — 2026-09-07
+			// (Responsible AI framing)" and its video follow-up. ?>
 		<section id="responsible" class="box box--dark box--responsible" aria-labelledby="resp-title">
-			<p class="eyebrow reveal">Responsible AI</p>
-			<h2 id="resp-title" class="mt-2 reveal">Practical AI, tailored to your processes.</h2>
-			<p class="body-lg text-secondary mt-2 measure reveal reveal--d1">We identify where AI can help across your core delivery and supporting business processes, from analyzing performance to preparing reports and handling routine information requests. Each application is shaped around your team's needs, the way you work, and the data you use.</p>
-			<p class="body-lg text-secondary mt-2 measure reveal reveal--d1">We assess its usefulness and limitations, address data quality and access, and establish how results will be reviewed before wider use.</p>
+			<div class="intelligence-layout">
+				<div class="reveal measure">
+					<p class="eyebrow">Responsible AI</p>
+					<h2 id="resp-title" class="mt-2">Practical AI, tailored to your processes.</h2>
+					<p class="body-lg text-secondary mt-2">We identify where AI can help across your core delivery and supporting business processes, from analyzing performance to preparing reports and handling routine information requests. Each application is shaped around your team's needs, the way you work, and the data you use.</p>
+					<p class="body-lg text-secondary mt-2">We assess its usefulness and limitations, address data quality and access, and establish how results will be reviewed before wider use.</p>
+				</div>
+				<?php // Quiet ambient loop beside the intro. Decorative; hidden on
+					// reduced motion and on narrow screens (section stays text-only there). ?>
+				<div class="intelligence-layout__visual reveal reveal--d1">
+					<div class="resp-media" aria-hidden="true">
+						<video class="resp-media__vid" autoplay muted loop playsinline preload="metadata">
+							<source src="<?php echo esc_url( get_theme_file_uri( 'assets/video/responsible-ai-loop.mp4' ) ); ?>" type="video/mp4">
+						</video>
+					</div>
+				</div>
+			</div>
 			<div class="principle-rule mt-6 reveal reveal--d2" aria-hidden="true"></div>
 			<div class="grid mt-4">
 				<div class="grid-3 reveal reveal--d2">

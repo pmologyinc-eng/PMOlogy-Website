@@ -438,3 +438,35 @@ Novamira filesystem abilities; the branch `hero-video-background` copy is the
 source of truth. `front-page.php` section classes + `.box--responsible` in
 `styles.css`. Local rhythm reference kept at
 `scratchpad/expertise-preview/rhythm.html` (Sections 1 to 4 together).
+
+### Video follow-up — 2026-09-07 (ambient loop in the box)
+
+Owner-approved. An **owner override** of this section's "quietest section on the
+page ... no image or animation" guardrail (Section 4 above and the excludes
+list): the owner supplied a loop for Responsible AI and asked for the Section 1
+treatment. D-0004 (no glow / gradient / bloom / blur) is unchanged and still
+honoured; the panel is flat.
+
+**Treatment (mirrors Section 1 "Our approach").**
+
+- Clip `assets/video/responsible-ai-loop.mp4` (1280x720, ~8s, H.264, ~1.4 MB —
+  same format as `modular-elements-loop.mp4`). Owner-supplied; no re-grade.
+- The section's intro (eyebrow, heading, two paragraphs) moves into an
+  `.intelligence-layout` two-column grid inside the dark box; the loop sits in
+  `.resp-media` in the second column (rounded, 16:9, `overflow:hidden`,
+  Teal-tinted hairline against the Ink box). The principle rule and the three
+  principle columns still span the full box width below the grid.
+- `<video autoplay muted loop playsinline preload="metadata">`, `aria-hidden`,
+  no `<source>` poster. Hidden outright under `prefers-reduced-motion` and below
+  900px (`#responsible .intelligence-layout__visual { display: none }`), where
+  the section reverts to text-only — exactly as `#layer` does.
+- New CSS: `.resp-media` + `#responsible .intelligence-layout` rules next to the
+  `#layer` block in `styles.css`. Copy unchanged.
+
+**Committed on branch `hero-video-background` as theme `1.4.9`; live deploy to
+pmology.ca pending** (the Novamira `execute-php` / `run-wp-cli` abilities needed
+to replace a theme `.php` file were blocked by the session's auto-mode
+classifier after the `1.4.8` deploy; `styles.css`, `style.css`, and the video
+are non-PHP and deployable on their own, but the three ship together). Live site
+is on `1.4.8` (framed box, no video). Local preview:
+`scratchpad/expertise-preview/rhythm.html`.

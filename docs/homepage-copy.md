@@ -229,11 +229,24 @@ Description:
   Slate/Ink surface") and reads as a considered governance / trust statement.
   Flat Ink fill with one restrained Teal top-rule (the same 3px accent idiom the
   wash boxes use); body copy and the principle hairline switch to the dark-kit
-  neutrals for legibility. No gradient, glow, image, or motion (D-0004 stands).
+  neutrals for legibility. No gradient, glow, bloom, or blur (D-0004 stands).
   Section 2 ("Three connected areas of expertise") stays unboxed by owner
   decision; only Responsible AI is framed. Recorded in
   `landing-page-storyboard.md`, "Amendment — 2026-09-07 (Responsible AI
   framing)".
+- **Ambient video panel (owner-approved 2026-09-07; committed on branch
+  `hero-video-background` as theme `1.4.9`, live deploy pending).** A quiet
+  decorative loop (`assets/video/responsible-ai-loop.mp4`, muted / looping,
+  `aria-hidden`, no poster) sits in a rounded panel beside the intro on desktop
+  (>=900px), matching the Section 1 "Our approach" pattern: two equal columns
+  inside the dark box, Teal-tinted hairline on the panel, the principle rule and
+  the three principle columns spanning full width below. The panel is hidden
+  outright under `prefers-reduced-motion` and below 900px, where the section
+  stays text-only. This is an **owner override** of the storyboard's "quietest
+  section, no image or animation" guardrail for Responsible AI (storyboard
+  Section 4 and the excludes list); D-0004 (no glow/gradient/blur) is unchanged.
+  Copy is untouched. Recorded in `landing-page-storyboard.md`, "Amendment —
+  2026-09-07 (Responsible AI framing)", video follow-up.
 
 ### Scope note
 

@@ -648,6 +648,35 @@ h4, .h4    { font-size: 1.375rem; font-weight: 600; line-height: 1.3; }
   #layer .intelligence-layout__visual { display: none; }
 }
 
+/* "Responsible AI" (#responsible): the same quiet ambient-loop panel pattern as
+   #layer, on the dark box. Owner override of the storyboard's "no image or
+   animation" guardrail for this section (landing-page-storyboard.md, "Amendment
+   — 2026-09-07 (Responsible AI framing)"). Panel is decorative (aria-hidden),
+   muted / looping, no poster: hidden outright under reduced motion and below
+   900px, where the section reverts to text-only. Teal-tinted hairline lifts the
+   pale render off the Ink box. */
+.resp-media {
+  width: 100%;
+  border-radius: 12px; overflow: hidden;
+  background: var(--dark-bg); aspect-ratio: 16 / 9;
+  border: 1px solid color-mix(in srgb, var(--site-accent) 30%, var(--dark-border));
+}
+.resp-media__vid { display: block; width: 100%; height: 100%; object-fit: cover; }
+#responsible .intelligence-layout {
+  gap: clamp(40px, 4vw, 64px);
+  align-items: start;
+}
+#responsible .intelligence-layout > .reveal { align-self: center; }
+@media (min-width: 900px) {
+  #responsible .intelligence-layout { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 899px) {
+  #responsible .intelligence-layout__visual { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #responsible .intelligence-layout__visual { display: none; }
+}
+
 /* Detail list: the specific-service bullets under each Project Controls
    group (Schedule Management, Cost & Resource Management, etc.) — a plain
    dash marker in the accent color, not a checkmark/icon, matching the
